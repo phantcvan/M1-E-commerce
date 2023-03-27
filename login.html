@@ -6,19 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"> -->
 </head>
 <style>
     .limiter .toast1 {
@@ -60,7 +65,7 @@
                                 id="username">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
-                                <i class='bx bx-user'></i>
+                                <i class="fa-solid fa-user"></i>
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input">
@@ -69,7 +74,7 @@
                             <span toggle="#password-field" class="bx fa-fw bx-hide field-icon click-eye"></span>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
-                                <i class='bx bx-key'></i>
+                                <i class="fa-solid fa-lock"></i>
                             </span>
                         </div>
 
@@ -80,7 +85,6 @@
                         <div class="text-center p-t-20 txt2">
                             Bạn chưa có tài khoản? <a href="./signin.html" style="color:rgb(0,28,64)">Đăng ký ngay</a>
                             </p>
-
                         </div>
 
                     </form>
@@ -123,6 +127,7 @@
             var password = document.getElementById("password-field").value;
             let listUser = JSON.parse(localStorage.getItem("listUser"));
             let result = document.getElementById("toast-body");
+            // Đăng nhập Admin
             if (username == 'admin' && password == "123456") {
                 result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                 <div class="toast-header">
@@ -133,7 +138,7 @@
                 </div>  
                 </div>`;
                 setTimeout(function () {
-                    window.location = "doc/index.html";
+                    window.location = "index.html";
                 }, 1000);
                 return;
             }
@@ -147,18 +152,36 @@
                 </div>
                 </div>`;
                 setTimeout(function () {
-                    window.location = "login.html";
+                    window.location = "/shop/login.html";
                 }, 2000);
                 return;
             }
-
-
             if (!listUser) {
                 listUser = [];
             }
             localStorage.setItem("listUser", JSON.stringify(listUser));
-            if (listUser.find((s) => s.status == "Bị hạn chế")){
-                result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+            for (i = 0; i < listUser.length; i++) {
+                if (listUser[i].username == username && listUser[i].password == password && 
+                listUser[i].status == "Đang hoạt động") {
+                    localStorage.setItem("flag", username);
+                    result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+                        <div class="toast-header">
+                            <strong class="mr-auto" style="font-size:18px">Đăng nhập thành công</strong>
+                            </div>
+                            <div class="toast-body" style="font-size:18px">
+                                Xin chào, ${username}
+                                </div>  
+                                </div>`;
+
+                setTimeout(function () {
+                    window.location = "shop/index.html";
+                }, 2000);
+                return;
+            }
+                else if (listUser[i].username == username && listUser[i].password == password &&
+                listUser[i].status == "Bị hạn chế") {
+                    console.log("2",listUser[i].status);
+                    result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                 <div class="toast-header">
                     <strong class="mr-auto" style="font-size:18px">Tài khoản hiện đang bị khoá</strong>
                 </div>
@@ -166,40 +189,43 @@
                 Hãy liên hệ Admin để biết thêm chi tiết!
                 </div>  
                 </div>`;
-                setTimeout(function () {
-                    window.location = "login.html";
-                }, 2000);
-                return;
+                    setTimeout(function () {
+                        window.location = "login.html";
+                    }, 2000);
+                    return;
             }
 
-            if (listUser.find((s) => (s.username == username && s.password == password))) {
-                localStorage.setItem("flag", username);
+            else if (listUser[i].username == username && listUser[i].password!=password&& 
+                listUser[i].status == "Đang hoạt động") {
+                console.log("3",listUser[i].status);
                 result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
-                <div class="toast-header">
-                    <strong class="mr-auto" style="font-size:18px">Đăng nhập thành công</strong>
-                </div>
-                <div class="toast-body" style="font-size:18px">
-                Xin chào, ${username}
-                </div>  
-                </div>`;
-                setTimeout(function () {
-                    window.location = "index.html";
-                }, 2000);
-            }
-                
-            else {
-                result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
-                <div class="toast-header">
-                    <strong class="mr-auto">Xin thử lại</strong>
-                </div>
-                <div class="toast-body">
-                Tên người dùng hoặc mật khẩu không đúng
+                    <div class="toast-header">
+                        <strong class="mr-auto">Xin thử lại</strong>
+                        </div>
+                        <div class="toast-body">
+                Mật khẩu không đúng
                 </div>
                 </div>`;
                 setTimeout(function () {
                     window.location = "login.html";
                 }, 2000);
                 return;
+            }
+            // else if (listUser[i].username != username){
+            //     console.log("4",listUser[i].status);
+            //     result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+            //         <div class="toast-header">
+            //             <strong class="mr-auto">Xin thử lại</strong>
+            //             </div>
+            //             <div class="toast-body">
+            //     Tên người dùng chưa đăng ký tài khoản
+            //     </div>
+            //     </div>`;
+            //     setTimeout(function () {
+            //         window.location = "login.html";
+            //     }, 2000);
+            //     return;
+            // }
             }
 
         }

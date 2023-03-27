@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Danh sách khách hàng | Quản trị Admin</title>
+  <title>Danh sách khách hàng</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +20,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
 </head>
+<style>
+  @media (max-width:991px) {
+    .app-sidebar {
+      width: 220px;
+      padding-right: 0px;
+    }
+
+    .app-sidebar {
+      padding: 0px;
+    }
+
+    .tile-body {
+      overflow-x: auto;
+    }
+  }
+</style>
 
 <body onload="time()" class="app sidebar-mini rtl">
   <!-- Navbar-->
@@ -39,7 +55,7 @@
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/admin.png" width="50px"
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="./images/admin.png" width="50px"
         alt="User Image">
       <div>
         <p class="app-sidebar__user-name"><b>ADMIN</b></p>
@@ -66,75 +82,42 @@
       </ul>
       <div id="clock"></div>
     </div>
+    <!-- Tìm kiếm tên người dùng -->
     <div class="row">
-      <!-- <div class="col-sm-12 col-md-6">
-        <div class="dataTables_length" id="sampleTable_length">
-          <label>Hiện
-            <select name="sampleTable_length" aria-controls="sampleTable" class="form-control form-control-sm">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select> danh mục</label>
-        </div>
-      </div> -->
-      <div class="col-sm-12 col-md-6">
+      <div class="col-sm-12 col-md-12">
         <div id="sampleTable_filter" class="dataTables_filter">
-          <label>Tìm kiếm:
-            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
-          </label>
+          <div class="d-flex">
+            <input class="form-control me-2" type="search" id="searchUser" placeholder="Tìm kiếm tên người dùng"
+              aria-label="Search">
+            <button style="border: 1px solid rgb(218,218,218); padding: 11px 10px" class="btn" type="submit"
+              onclick="searchButton()"> Tìm kiếm </button>
+          </div>
+          <table id="searchResult">
+
+          </table><br>
         </div>
       </div>
     </div>
+    <!-- Flexbox container for aligning the toasts -->
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-12">
         <div class="tile">
           <div class="tile-body">
-
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
-              id="renderUser">
-              <!-- <thead>
-                <tr>
+            <table class="table table-hover table-bordered js-copytextarea col-12 " cellpadding="0" cellspacing="0"
+              border="0" id="renderUser">
+              <!-- <tr>
                   <th>TT</th>
                   <th>Tên đăng nhập</th>
                   <th>Email</th>
                   <th>Số điện thoại</th>
-                  <th width="300">Ghi chú</th>
+                  <th>Ghi chú</th>
                   <th>Tính năng</th>
-                </tr>
-              </thead> -->
-
+                </tr> -->
             </table>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-sm-12 col-md-5">
-        <div class="dataTables_info" id="sampleTable_info" role="status" aria-live="polite">
-          Hiện 1 đến 7 của 7 danh mục
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-7">
-        <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
-          <ul class="pagination">
-            <li class="paginate_button page-item previous disabled" id="sampleTable_previous">
-              <a href="#" aria-controls="sampleTable" data-dt-idx="0" tabindex="0" class="page-link">
-                Lùi
-              </a>
-            </li>
-            <li class="paginate_button page-item active">
-              <a href="#" aria-controls="sampleTable" data-dt-idx="1" tabindex="0" class="page-link">
-                1
-              </a>
-            </li>
-            <li class="paginate_button page-item next disabled" id="sampleTable_next">
-              <a href="#" aria-controls="sampleTable" data-dt-idx="2" tabindex="0" class="page-link">Tiếp</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
   </main>
 
   <!--
@@ -167,7 +150,7 @@
           </div>
           <BR>
           <BR>
-          <button class="btn btn-save" type="button" value="1" >Lưu lại</button>
+          <button class="btn btn-save" type="button" value="1">Lưu lại</button>
           <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
           <BR>
         </div>
@@ -182,21 +165,6 @@
 
 
 
-  <!-- Essential javascripts for application to work-->
-  <!-- <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="src/jquery.table2excel.js"></script>
-  <script src="js/main.js"></script> -->
-  <!-- The javascript plugin to display page loading on top-->
-  <!-- <script src="js/plugins/pace.min.js"></script> -->
-  <!-- Page specific javascripts-->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script> -->
-  <!-- Data table plugin-->
-  <!-- <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript">$('#sampleTable').DataTable();</script> -->
   <script>
 
     //Thời Gian
@@ -216,10 +184,10 @@
       var yyyy = today.getFullYear();
       var h = today.getHours();
       var m = today.getMinutes();
-      var s = today.getSeconds();
+      // var s = today.getSeconds();
       m = checkTime(m);
-      s = checkTime(s);
-      nowTime = h + " giờ " + m + " phút " + s + " giây";
+      // s = checkTime(s);
+      nowTime = h + " giờ " + m + " phút ";
       if (dd < 10) {
         dd = '0' + dd
       }
@@ -248,22 +216,21 @@
       }
       let result = `
                 <tr>
-                  <th>TT</th>
-                  <th>Tên đăng nhập</th>
-                  <th>Email</th>
-                  <th>Số điện thoại</th>
-                  <th width="200">Ghi chú</th>
-                  <th>Tình trạng</th>
-                  <th colspan="2">Tính năng</th>
+                  <th style="text-align:center">TT</th>
+                  <th style="text-align:center" class="col-2">Tên đăng nhập</th>
+                  <th style="text-align:center" class="col-2">Email</th>
+                  <th style="text-align:center" class="col-2">Số điện thoại</th>
+                  <th style="text-align:center" class="col-2">Ghi chú</th>
+                  <th style="text-align:center" class="col-2">Tình trạng</th>
+                  <th style="text-align:center" colspan="2"  class="col-1">Tính năng</th>
                 </tr>
 
                 `;
       for (let i = 0; i < listUser.length; i++) {
         result += `
                         <tr>
-                            <td> ${i + 1} </td>
-                            <td style="text-align: left"> ${listUser[i].username
-          } </td>
+                            <td style="text-align:center"> ${i + 1} </td>
+                            <td style="text-align: left"> ${listUser[i].username} </td>
                             <td> ${listUser[i].email} </td>
                             <td> ${listUser[i].telephone} </td>
                             <td> ${listUser[i].note} </td>
@@ -272,8 +239,7 @@
                               data-toggle="modal" data-target="#ModalUP"> 
                               <i class="fas fa-edit" onclick="note(${i})"> Sửa </td>
                             <td class="btn btn-sm trash" title="Xóa" onclick="deleteUser(${i})">
-                              <i class="fas fa-trash-alt"></i> Xoá 
-                            </td>
+                              <i class="fas fa-trash-alt"></i> Xoá </td>
                         </tr>`;
       }
       document.getElementById("renderUser").innerHTML = result;
@@ -281,8 +247,8 @@
     renderUser();
     // update ghi chú
     function note(id) {
-      document.getElementById("note").value= listUser[id].note;
-      document.getElementById("statusSelect").value= listUser[id].status;
+      document.getElementById("note").value = listUser[id].note;
+      document.getElementById("statusSelect").value = listUser[id].status;
       document.querySelector('.btn-save').addEventListener('click', function () {
         let newNote = document.getElementById("note").value;
         listUser[id].note = newNote;
@@ -294,7 +260,7 @@
         //     console.log(listUser[i].status);
         //     listUser[i].status.style.color="green";
         //   }
-          
+
         // }
 
         localStorage.setItem("listUser", JSON.stringify(listUser));
@@ -306,9 +272,62 @@
     // Xoá người dùng
     function deleteUser(id) {
       console.log(listUser[id]);
-      listUser.splice(id, 1);
+      let alertDeleteUser = document.getElementById("toast")
+      let accept = confirm('Bạn có chắc chắn muốn xoá account này?')
+      if (accept) {
+        listUser.splice(id, 1);
+      }
       localStorage.setItem("listUser", JSON.stringify(listUser));
       renderUser();
+    }
+
+    // Tìm kiếm người dùng
+    function searchButton() {
+      let searchValue = document.getElementById("searchUser").value;
+      if (searchValue == "") {
+        document.getElementById("searchResult").innerHTML = `
+          <tr><td colspan='8'>Hãy nhập thông tin vào ô tìm kiếm</td></tr>
+          `;
+        return;
+      }
+      let total = `
+        <tr>
+          <th style="text-align:center" class="col-1">TT</th>
+                  <th style="text-align:center" class="col-2">Tên đăng nhập</th>
+                  <th style="text-align:center" class="col-2">Email</th>
+                  <th style="text-align:center" class="col-2">Số điện thoại</th>
+                  <th style="text-align:center" class="col-2">Ghi chú</th>
+                  <th style="text-align:center" class="col-2">Tình trạng</th>
+                  <th style="text-align:center" colspan="2"  class="col-1">Tính năng</th>
+                </tr>`;
+      let found = false;
+      for (let i = 0; i < listUser.length; i++) {
+        if (listUser[i].username.toLowerCase().includes(searchValue.toLowerCase())) {
+          total += `
+            <tr>
+              <td> ${i + 1} </td>
+              <td style="text-align: left"> ${listUser[i].username} </td>
+              <td> ${listUser[i].email} </td>
+              <td> ${listUser[i].telephone} </td>
+              <td> ${listUser[i].note} </td>
+              <td> ${listUser[i].status} </td>
+              <td class="btn btn-sm edit" style="border:none; background-color:rgb(255, 212, 59);" type="button" title="Sửa" id="show-emp"
+                data-toggle="modal" data-target="#ModalUP"> 
+                <i class="fas fa-edit" onclick="note(${i})"> Sửa </td>
+              <td class="btn btn-sm trash" title="Xóa" onclick="deleteUser(${i})">
+                <i class="fas fa-trash-alt"></i> Xoá </td>
+            </tr>`;
+          found = true;
+        }
+        document.getElementById("searchResult").innerHTML = total;
+      }
+
+      if (!found) {
+        document.getElementById("searchResult").innerHTML =
+          "<tr><td colspan='8'>Không có kết quả phù hợp</td></tr>";
+      } else {
+        document.getElementById("searchResult").innerHTML = total;
+      }
     }
 
 

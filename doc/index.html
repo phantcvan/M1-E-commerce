@@ -38,7 +38,7 @@
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/admin.png" width="50px"
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="./images/admin.png" width="50px"
         alt="User Image">
       <div>
         <p class="app-sidebar__user-name"><b>ADMIN</b></p>
@@ -174,36 +174,7 @@
             <div class="tile">
               <h3 class="tile-title">Khách hàng mới</h3>
               <div>
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Tên khách hàng</th>
-                      <th>Số điện thoại</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>#183</td>
-                      <td>Hột vịt muối</td>
-                      <td><span class="tag tag-success">0921387221</span></td>
-                    </tr>
-                    <tr>
-                      <td>#219</td>
-                      <td>Bánh tráng trộn</td>
-                      <td><span class="tag tag-warning">0912376352</span></td>
-                    </tr>
-                    <tr>
-                      <td>#627</td>
-                      <td>Cút rang bơ</td>
-                      <td><span class="tag tag-primary">01287326654</span></td>
-                    </tr>
-                    <tr>
-                      <td>#175</td>
-                      <td>Hủ tiếu nam vang</td>
-                      <td><span class="tag tag-danger">0912376763</span></td>
-                    </tr>
-                  </tbody>
+                <table class="table table-hover" id="newUser">
                 </table>
               </div>
 
@@ -220,7 +191,7 @@
             <div class="tile">
               <h3 class="tile-title">Dữ liệu 6 tháng đầu vào</h3>
               <div>
-                <img src="/images/chart1.png" width="100%" alt="">
+                <img src="./images/chart1.png" width="100%" alt="">
               </div>
             </div>
           </div>
@@ -228,7 +199,7 @@
             <div class="tile">
               <h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
               <div>
-                <img src="/images/chart2.png"  width="100%" alt="">
+                <img src="./images/chart2.png"  width="100%" alt="">
               </div>
             </div>
           </div>
@@ -240,19 +211,24 @@
 
 
   </main>
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <!--===============================================================================================-->
+  <!-- Load jQuery first -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- Load Popper.js next -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <!-- Load Bootstrap JS last -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+
+
+  <!-- <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-  <!--===============================================================================================-->
   <script src="js/bootstrap.min.js"></script>
-  <!--===============================================================================================-->
   <script src="js/main.js"></script>
-  <!--===============================================================================================-->
   <script src="js/plugins/pace.min.js"></script>
-  <!--===============================================================================================-->
-  <script type="text/javascript" src="js/plugins/chart.js"></script>
-  <!--===============================================================================================-->
+  <script type="text/javascript" src="js/plugins/chart.js"></script> -->
+
+
   <script type="text/javascript">
     //Thời Gian
     function time() {
@@ -271,10 +247,10 @@
       var yyyy = today.getFullYear();
       var h = today.getHours();
       var m = today.getMinutes();
-      var s = today.getSeconds();
+      // var s = today.getSeconds();
       m = checkTime(m);
-      s = checkTime(s);
-      nowTime = h + " giờ " + m + " phút " + s + " giây";
+      // s = checkTime(s);
+      nowTime = h + " giờ " + m + " phút " ;
       if (dd < 10) {
         dd = '0' + dd
       }
@@ -294,7 +270,40 @@
         return i;
       }
     }
-  </script>
+
+    let listUser = JSON.parse(localStorage.getItem("listUser"));
+    
+    function newUser(){
+      if (listUser == null) {
+        listUser = [];
+      }
+      let newUser = `
+      <tr>
+        <th style="text-align:center">TT</th>
+        <th style="text-align:center">Tên đăng nhập</th>
+        <th style="text-align:center">Số điện thoại</th>
+        </tr>
+        `;
+        let a=1;
+        let b=listUser.length-1;
+        let c=listUser.length-5;
+        if (c<0){c=0}
+        console.log(c);
+
+        for (let i = b; i >= c; i--) {
+          console.log(listUser[i].username);
+          newUser += `
+                        <tr>
+                            <td style="text-align:center"> ${a++} </td>
+                            <td style="text-align: left"> ${listUser[i].username} </td>
+                            <td> ${listUser[i].telephone} </td>
+                        </tr>`;
+      }
+      document.getElementById("newUser").innerHTML = newUser;
+    }
+    newUser();
+
+</script>
 </body>
 
 </html>

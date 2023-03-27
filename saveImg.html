@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" onchange="changeImg()"> <!-- Nếu muốn add nhiều ảnh: thêm multiple -->
+    <img id="image" src="" alt="">
+
+
+    <script>
+        function changeImg(img){
+            let elementInput= img.files[0];
+            // if (element.file[0].size>100000){
+            //     console.log("Ảnh quá kích thước!")
+            // }
+            // // kiểm tra định dạng ảnh
+            // console.log(elementInput.name.endsWith(".jpg")); //Nếu đúng: true, sai: false
+            
+            let result=URL.createObjectURL(elementInput);
+            localStorage.setItem("listImage",result)
+            document.getElementById("image").src=result;
+
+        }
+    </script>
+</body>
+</html>

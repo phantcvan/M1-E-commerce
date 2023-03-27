@@ -149,11 +149,11 @@
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="./images/admin.png" width="50px"
         alt="User Image">
       <div>
-        <p class="app-sidebar__user-name"><b>Võ Trường</b></p>
-        <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+        <p class="app-sidebar__user-name"><b>ADMIN</b></p>
+        <!-- <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p> -->
       </div>
     </div>
     <hr>
@@ -164,7 +164,7 @@
           <span class="app-menu__label">Quản lý khách hàng</span></a></li>
       <li><a class="app-menu__item active" href="data-product.html"><i
             class='app-menu__icon bx bx-purchase-tag-alt'></i>
-            <span class="app-menu__label">Quản lý sản phẩm</span></a>
+          <span class="app-menu__label">Quản lý sản phẩm</span></a>
       </li>
       <li><a class="app-menu__item" href="data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
@@ -173,7 +173,7 @@
   <main class="app-content">
     <div class="app-title">
       <ul class="app-breadcrumb breadcrumb">
-        <li class="breadcrumb-item">Danh sách sản phẩm</li>
+        <li class="breadcrumb-item"><a href="data-product.html">Danh sách sản phẩm</a> </li>
         <li class="breadcrumb-item"><a href="#">Thêm sản phẩm</a></li>
       </ul>
     </div>
@@ -184,135 +184,76 @@
           <div class="tile-body">
             <div class="row element-button">
               <div class="col-sm-2">
-                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
-                    class="fas fa-folder-plus"></i> Thêm nhà cung cấp</a>
-              </div>
-              <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
                     class="fas fa-folder-plus"></i> Thêm danh mục</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang"><i
-                    class="fas fa-folder-plus"></i> Thêm tình trạng</a>
               </div>
             </div>
             <form class="row">
               <div class="form-group col-md-3">
-                <label class="control-label">Mã sản phẩm </label>
-                <input class="form-control" type="number" placeholder="">
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Tên sản phẩm</label>
-                <input class="form-control" type="text">
-              </div>
-
-
-              <div class="form-group  col-md-3">
-                <label class="control-label">Số lượng</label>
-                <input class="form-control" type="number">
-              </div>
-              <div class="form-group col-md-3 ">
-                <label for="exampleSelect1" class="control-label">Tình trạng</label>
-                <select class="form-control" id="exampleSelect1">
-                  <option>-- Chọn tình trạng --</option>
-                  <option>Còn hàng</option>
-                  <option>Hết hàng</option>
-                </select>
-              </div>
-              <div class="form-group col-md-3">
-                <label for="exampleSelect1" class="control-label">Danh mục</label>
-                <select class="form-control" id="exampleSelect1">
+                <label for="list" class="control-label">Danh mục</label>
+                <select class="form-control" id="list" onchange="makeCode()">
                   <option>-- Chọn danh mục --</option>
-                  <option>Bàn ăn</option>
-                  <option>Bàn thông minh</option>
-                  <option>Tủ</option>
-                  <option>Ghế gỗ</option>
-                  <option>Ghế sắt</option>
-                  <option>Giường người lớn</option>
-                  <option>Giường trẻ em</option>
-                  <option>Bàn trang điểm</option>
-                  <option>Giá đỡ</option>
+                  <option value="Giày">Giày</option>
+                  <option value="Khuyên tai">Khuyên tai</option>
+                  <option value="Vòng cổ">Vòng cổ</option>
+                  <option value="Túi xách">Túi xách</option>
+                  <option value="Hoa cài tóc">Hoa cài tóc</option>
                 </select>
               </div>
-              <div class="form-group col-md-3 ">
-                <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
-                <select class="form-control" id="exampleSelect1">
-                  <option>-- Chọn nhà cung cấp --</option>
-                  <option>Phong vũ</option>
-                  <option>Thế giới di động</option>
-                  <option>FPT</option>
-                  <option>Võ Trường</option>
-                </select>
+              <!-- <div class="form-group col-md-4">
+                <label class="control-label">Mã sản phẩm </label>
+                <p id="code" style="margin: 5px;"></p>
+              </div> -->
+              <div class="form-group col-md-4">
+                <label class="control-label">Tên sản phẩm</label>
+                <input class="form-control" id="nameProduct" type="text">
               </div>
+
+
+              <div class="form-group  col-md-2">
+                <label class="control-label">Số lượng</label>
+                <input class="form-control" id="quantity" type="number">
+              </div>
+              <!-- <div class="form-group col-md-4 ">
+                <label for="status" class="control-label">Tình trạng</label>
+                <select class="form-control" id="status">
+                  <option>-- Chọn tình trạng --</option>
+                  <option value="Còn hàng">Còn hàng</option>
+                  <option value="Hết hàng">Hết hàng</option>
+
+                </select>
+              </div> -->
               <div class="form-group col-md-3">
                 <label class="control-label">Giá bán</label>
-                <input class="form-control" type="text">
-              </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Giá vốn</label>
-                <input class="form-control" type="text">
+                <input class="form-control" id="price" type="number">
               </div>
               <div class="form-group col-md-12">
                 <label class="control-label">Ảnh sản phẩm</label>
                 <div id="myfileupload">
-                  <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                  <input type="file" id="imageInput" name="ImageUpload">
                 </div>
                 <div id="thumbbox">
-                  <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none" />
-                  <a class="removeimg" href="javascript:"></a>
+                  <img width="200" alt="preview" id="preview">
+                  <!-- <a class="removeimg" href="javascript:"></a> -->
                 </div>
-                <div id="boxchoice">
+                <!-- <div id="boxchoice">
                   <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
                   <p style="clear:both"></p>
-                </div>
+                </div> -->
 
               </div>
               <div class="form-group col-md-12">
                 <label class="control-label">Mô tả sản phẩm</label>
-                <textarea class="form-control" name="mota" id="mota"></textarea>
-                <script>CKEDITOR.replace('mota');</script>
+                <textarea class="form-control" name="mota" id="describe"></textarea>
+                <!-- <script>CKEDITOR.replace('mota');</script> -->
               </div>
 
           </div>
-          <button class="btn btn-save" type="button">Lưu lại</button>
+          <button class="btn btn-save" type="button" onclick="saveProduct()">Lưu lại</button>
           <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
         </div>
   </main>
 
-
-  <!--
-  MODAL CHỨC VỤ 
--->
-  <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Thêm mới nhà cung cấp</h5>
-              </span>
-            </div>
-            <div class="form-group col-md-12">
-              <label class="control-label">Nhập tên chức vụ mới</label>
-              <input class="form-control" type="text" required>
-            </div>
-          </div>
-          <BR>
-          <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-          <BR>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <!--
-MODAL
--->
 
 
 
@@ -338,15 +279,11 @@ MODAL
             <div class="form-group col-md-12">
               <label class="control-label">Danh mục sản phẩm hiện đang có</label>
               <ul style="padding-left: 20px;">
-                <li>Bàn ăn</li>
-              <li>Bàn thông minh</li>
-              <li>Tủ</li>
-              <li>Ghế gỗ</li>
-              <li>Ghế sắt</li>
-              <li>Giường người lớn</li>
-              <li>Giường trẻ em</li>
-              <li>Bàn trang điểm</li>
-              <li>Giá đỡ</li>
+                <li>Giày</li>
+                <li>Khuyên tai</li>
+                <li>Vòng cổ</li>
+                <li>Túi xách</li>
+                <li>Hoa cài tóc</li>
               </ul>
             </div>
           </div>
@@ -367,66 +304,156 @@ MODAL
 
 
 
-  <!--
-  MODAL TÌNH TRẠNG
--->
-  <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
 
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Thêm mới tình trạng</h5>
-              </span>
-            </div>
-            <div class="form-group col-md-12">
-              <label class="control-label">Nhập tình trạng mới</label>
-              <input class="form-control" type="text" required>
-            </div>
-          </div>
-          <BR>
-          <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-          <BR>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--
-MODAL
--->
+  <!-- Load jQuery first -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- Load Popper.js next -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <!-- Load Bootstrap JS last -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
 
 
-
-  <script src="js/jquery-3.2.1.min.js"></script>
+  <!-- <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/plugins/pace.min.js"></script>
+  <script src="js/plugins/pace.min.js"></script> -->
   <script>
-    const inpFile = document.getElementById("inpFile");
-    const loadFile = document.getElementById("loadFile");
-    const previewContainer = document.getElementById("imagePreview");
+
+    // const inpFile = document.getElementById("inpFile");
+    // const loadFile = document.getElementById("loadFile");
     // const previewContainer = document.getElementById("imagePreview");
-    const previewImage = previewContainer.querySelector(".image-preview__image");
-    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-    inpFile.addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        previewDefaultText.style.display = "none";
-        previewImage.style.display = "block";
-        reader.addEventListener("load", function () {
-          previewImage.setAttribute("src", this.result);
-        });
-        reader.readAsDataURL(file);
+    // // const previewContainer = document.getElementById("imagePreview");
+    // const previewImage = previewContainer.querySelector(".image-preview__image");
+    // const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+    // inpFile.addEventListener("change", function () {
+    //   const file = this.files[0];
+    //   if (file) {
+    //     const reader = new FileReader();
+    //     previewDefaultText.style.display = "none";
+    //     previewImage.style.display = "block";
+    //     reader.addEventListener("load", function () {
+    //       previewImage.setAttribute("src", this.result);
+    //     });
+    //     reader.readAsDataURL(file);
+    //   }
+    // });
+
+
+    // Lấy thẻ hình ảnh từ HTML
+    const imgElement = document.getElementById('preview');
+
+    // Lắng nghe sự kiện onchange của input
+    const imageInput = document.getElementById('imageInput');
+    const myImage = document.getElementById('preview');
+
+    imageInput.onchange = function (event) {
+      const file = event.target.files[0];
+
+      // Đọc tệp ảnh và chuyển đổi nó thành dữ liệu URL
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const dataUrl = event.target.result;
+
+        // Thiết lập nguồn ảnh của đối tượng ảnh với dữ liệu URL
+        myImage.src = dataUrl;
+
+        // Lưu dữ liệu URL vào local storage
+        localStorage.setItem('myImage', dataUrl);
+
+        // // Hiển thị ảnh
+        // imgElement.src = dataUrl;
+      };
+      reader.readAsDataURL(file);
+    };
+
+
+
+
+
+
+    // tạo code ngẫu nhiên
+    function makeCode() {
+      var select = document.getElementById("list");
+      var selectedOption = select.options[select.selectedIndex].value;
+      var firstChar = selectedOption.charAt(0).toUpperCase();
+    //   var today = new Date();
+    //   var day = today.getDay();
+    //   var dd = today.getDate();
+    //   var mm = today.getMonth() + 1;
+    //   var yyyy = String(today.getYear());
+    //   var h = today.getHours();
+    //   var m = today.getMinutes();
+    //   var s = today.getSeconds();
+    //   m = checkTime(m);
+    //   s = checkTime(s);
+    //   if (dd < 10) {
+    //     dd = '0' + dd
+    //   }
+    //   if (mm < 10) {
+    //     mm = '0' + mm
+    //   }
+    //   function checkTime(i) {
+    //     if (i < 10) {
+    //       i = "0" + i;
+    //     }
+    //     return i;
+    //   }
+      // return result = firstChar + yyyy + mm + dd + h + m + s;
+      return result = firstChar + Math.floor(Math.random() * 10000)
+    }
+
+    let listProduct = JSON.parse(localStorage.getItem("listProduct"));
+    function saveProduct() {
+      makeCode();
+      let code = result;
+      console.log(code);
+      // document.getElementById("code").innerHTML = result
+      let nameProduct = document.getElementById("nameProduct").value;
+      let quantity = document.getElementById("quantity").value;
+      let list = document.getElementById("list").value;
+      let price = Number(document.getElementById("price").value);
+      let describe = document.getElementById("describe").value;
+      let localStorageImage = localStorage.getItem("myImage");
+      console.log(localStorageImage);
+      if (listProduct == null) {
+        listProduct = [];
       }
-    });
+      let product = {
+        image: localStorageImage,
+        name: nameProduct,
+        code: code,
+        quantity: quantity,
+        status: "Còn hàng",
+        list: list,
+        price: price,
+        describe: describe,
+      }
+      // Nếu mã sp trùng thì yêu cầu nhập lại
+      // if (listProduct.find((s) => s.code === code && s.name === nameProduct && s.price === price)) {
+      //   alert("Sản phẩm đã tồn tại!");
+      //   return;
+      // }
+      // Cập nhập thông tin mới -> edit
+      // let flagProduct = JSON.parse(localStorage.getItem("flagProduct"));
+      // if (flagProduct != null) {
+      //   listProduct.splice(flagProduct, 1, product);
+      //   localStorage.removeItem("flagProduct");
+      //   localStorage.setItem("listProduct", JSON.stringify(listProduct));
+      //   render();
+      //   return;
+      // }
+
+      listProduct.push(product);
+      console.log(listProduct);
+      localStorage.setItem("listProduct", JSON.stringify(listProduct));
+      // render();
+      setTimeout(function () {
+        location.reload();
+      }, 100);
+    }
+
 
   </script>
 </body>
