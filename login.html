@@ -39,7 +39,6 @@
         line-height: 1.8;
     }
 
-    .limiter .toast1 .toast-header {}
 </style>
 
 <body>
@@ -138,7 +137,7 @@
                 </div>  
                 </div>`;
                 setTimeout(function () {
-                    window.location = "index.html";
+                    window.location = "./doc/admin.html";
                 }, 1000);
                 return;
             }
@@ -156,9 +155,11 @@
                 }, 2000);
                 return;
             }
+
             if (!listUser) {
                 listUser = [];
             }
+
             localStorage.setItem("listUser", JSON.stringify(listUser));
             for (i = 0; i < listUser.length; i++) {
                 if (listUser[i].username == username && listUser[i].password == password && 
@@ -174,7 +175,7 @@
                                 </div>`;
 
                 setTimeout(function () {
-                    window.location = "shop/index.html";
+                    window.location = "index.html";
                 }, 2000);
                 return;
             }

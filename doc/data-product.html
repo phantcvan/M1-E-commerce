@@ -203,7 +203,7 @@
           <BR>
           <BR>
           <button class="btn btn-save" type="button">Lưu lại</button>
-          <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+          <a class="btn btn-cancel" data-dismiss="modal" href="#" onclick="closeModal()">Hủy bỏ</a>
           <BR>
         </div>
         <div class="modal-footer">
@@ -371,7 +371,7 @@ MODAL
         listProduct[id].quantity = newQuantity;
         let newStatus = document.getElementById("status").value;
         listProduct[id].status = newStatus;
-        let newPrice = document.getElementById("price").value;
+        let newPrice = Number(document.getElementById("price").value);
         listProduct[id].price = newPrice;
         let newList = document.getElementById("list").value;
         listProduct[id].list = newList;
@@ -392,6 +392,10 @@ MODAL
       }
       renderProduct();
     }
+
+    function closeModal(){
+    $('#myModal').modal('hide')
+}
 
   </script>
 </body>

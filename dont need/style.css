@@ -811,18 +811,9 @@ tr:nth-child(even) {
     font-size: 2.5rem;
   }
   
-  /* header .navbar a{
-    display: block;
-    border-radius: .5rem;
-    padding:1.5rem;
-    margin:1.5rem 0;    
-    background:rgb(236,0,139);
-    color:#fff;
-  }    */
   header .search-bar-container{
     position: absolute;
     top:100%; left: 0; right:0;
-    /* padding:1.5rem 2rem; */
     background:rgb(236,0,139);
     border-top: .1rem solid rgba(255,255,255,.2);
     display: flex;

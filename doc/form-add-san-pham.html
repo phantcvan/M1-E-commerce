@@ -185,7 +185,7 @@
             <div class="row element-button">
               <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
-                    class="fas fa-folder-plus"></i> Thêm danh mục</a>
+                    class="fas fa-folder-plus" id="addOptionButton"></i>Thêm danh mục mới</a>
               </div>
             </div>
             <form class="row">
@@ -200,29 +200,14 @@
                   <option value="Hoa cài tóc">Hoa cài tóc</option>
                 </select>
               </div>
-              <!-- <div class="form-group col-md-4">
-                <label class="control-label">Mã sản phẩm </label>
-                <p id="code" style="margin: 5px;"></p>
-              </div> -->
               <div class="form-group col-md-4">
                 <label class="control-label">Tên sản phẩm</label>
                 <input class="form-control" id="nameProduct" type="text">
               </div>
-
-
               <div class="form-group  col-md-2">
                 <label class="control-label">Số lượng</label>
                 <input class="form-control" id="quantity" type="number">
               </div>
-              <!-- <div class="form-group col-md-4 ">
-                <label for="status" class="control-label">Tình trạng</label>
-                <select class="form-control" id="status">
-                  <option>-- Chọn tình trạng --</option>
-                  <option value="Còn hàng">Còn hàng</option>
-                  <option value="Hết hàng">Hết hàng</option>
-
-                </select>
-              </div> -->
               <div class="form-group col-md-3">
                 <label class="control-label">Giá bán</label>
                 <input class="form-control" id="price" type="number">
@@ -234,7 +219,6 @@
                 </div>
                 <div id="thumbbox">
                   <img width="200" alt="preview" id="preview">
-                  <!-- <a class="removeimg" href="javascript:"></a> -->
                 </div>
                 <!-- <div id="boxchoice">
                   <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i> Chọn ảnh</a>
@@ -245,7 +229,6 @@
               <div class="form-group col-md-12">
                 <label class="control-label">Mô tả sản phẩm</label>
                 <textarea class="form-control" name="mota" id="describe"></textarea>
-                <!-- <script>CKEDITOR.replace('mota');</script> -->
               </div>
 
           </div>
@@ -274,21 +257,23 @@
             </div>
             <div class="form-group col-md-12">
               <label class="control-label">Nhập tên danh mục mới</label>
-              <input class="form-control" type="text" required>
+              <input class="form-control" type="text" required id="newOption">
             </div>
             <div class="form-group col-md-12">
               <label class="control-label">Danh mục sản phẩm hiện đang có</label>
-              <ul style="padding-left: 20px;">
-                <li>Giày</li>
+              <ul style="padding-left: 20px;" id="listRender">
+
+                <!-- <li>Giày</li>
                 <li>Khuyên tai</li>
                 <li>Vòng cổ</li>
                 <li>Túi xách</li>
-                <li>Hoa cài tóc</li>
+                <li>Hoa cài tóc</li> -->
               </ul>
             </div>
+            <p id="newListNoti"></p>
           </div>
           <BR>
-          <button class="btn btn-save" type="button">Lưu lại</button>
+          <button class="btn btn-save" type="button" onclick="saveList()">Lưu lại</button>
           <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
           <BR>
         </div>
@@ -314,31 +299,8 @@ MODAL
   <script src="js/main.js"></script>
 
 
-  <!-- <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/plugins/pace.min.js"></script> -->
   <script>
 
-    // const inpFile = document.getElementById("inpFile");
-    // const loadFile = document.getElementById("loadFile");
-    // const previewContainer = document.getElementById("imagePreview");
-    // // const previewContainer = document.getElementById("imagePreview");
-    // const previewImage = previewContainer.querySelector(".image-preview__image");
-    // const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-    // inpFile.addEventListener("change", function () {
-    //   const file = this.files[0];
-    //   if (file) {
-    //     const reader = new FileReader();
-    //     previewDefaultText.style.display = "none";
-    //     previewImage.style.display = "block";
-    //     reader.addEventListener("load", function () {
-    //       previewImage.setAttribute("src", this.result);
-    //     });
-    //     reader.readAsDataURL(file);
-    //   }
-    // });
 
 
     // Lấy thẻ hình ảnh từ HTML
@@ -378,30 +340,9 @@ MODAL
       var select = document.getElementById("list");
       var selectedOption = select.options[select.selectedIndex].value;
       var firstChar = selectedOption.charAt(0).toUpperCase();
-    //   var today = new Date();
-    //   var day = today.getDay();
-    //   var dd = today.getDate();
-    //   var mm = today.getMonth() + 1;
-    //   var yyyy = String(today.getYear());
-    //   var h = today.getHours();
-    //   var m = today.getMinutes();
-    //   var s = today.getSeconds();
-    //   m = checkTime(m);
-    //   s = checkTime(s);
-    //   if (dd < 10) {
-    //     dd = '0' + dd
-    //   }
-    //   if (mm < 10) {
-    //     mm = '0' + mm
-    //   }
-    //   function checkTime(i) {
-    //     if (i < 10) {
-    //       i = "0" + i;
-    //     }
-    //     return i;
-    //   }
-      // return result = firstChar + yyyy + mm + dd + h + m + s;
-      return result = firstChar + Math.floor(Math.random() * 10000)
+      let random = Math.floor(Math.random() * 10000);
+      let randomString = String(random).padStart(5, '0');
+      return result = firstChar + randomString;
     }
 
     let listProduct = JSON.parse(localStorage.getItem("listProduct"));
@@ -420,6 +361,12 @@ MODAL
       if (listProduct == null) {
         listProduct = [];
       }
+      //Kiểm tra xem mã code có trùng không?
+      while (listProduct.find((s) => s.code === code)) {
+        makeCode();
+        code = result;
+      }
+
       let product = {
         image: localStorageImage,
         name: nameProduct,
@@ -453,6 +400,71 @@ MODAL
         location.reload();
       }, 100);
     }
+
+
+    // Thêm danh mục
+    //     addOptionButton.addEventListener('click', () => {
+    //   const newOption = document.getElementById("newOption").value;
+    //   if (newOption) {
+    //     const optionElement = document.createElement('option');
+    //     optionElement.value = newOption;
+    //     optionElement.text = newOption;
+    //     list.add(optionElement);
+    //     localStorage.setItem('list', list.innerHTML);
+    //   }
+    // });
+    let productList = JSON.parse(localStorage.getItem('productList'))
+    function saveList() {
+      let newOption = document.getElementById("newOption").value;
+      if (newOption=="") {
+        document.getElementById("newListNoti").innerHTML = `Hãy nhập danh mục hàng mới`
+        return;
+      }
+      if (productList == null) {
+        productList = [];
+        productList.push(newOption);
+        localStorage.setItem("productList", JSON.stringify(productList));
+        setTimeout(function () {
+            location.reload();
+          }, 100);
+
+        return;
+      }
+      for (i = 0; i < productList.length; i++) {
+        if (productList[i] != newOption) {
+          productList.push(newOption);
+          localStorage.setItem("productList", JSON.stringify(productList));
+          setTimeout(function () {
+            location.reload();
+          }, 100);
+          return;
+        }
+        else {
+          document.getElementById("newListNoti").innerHTML = `Danh mục hàng đã có!`
+          return;
+        }
+      }
+    }
+    function renderList() {
+      let productList = JSON.parse(localStorage.getItem('productList'))
+      console.log(productList);
+      let resultList = "";
+      for (i = 0; i < productList.length; i++) {
+        resultList += `<li>${productList[i]}<i class="fas fa-edit" onclick="listDelete(${i})"> Xoá</li>`
+      }
+      document.getElementById("listRender").innerHTML = resultList;
+    }
+    renderList();
+
+    function listDelete(id) {
+      // console.log(listProduct[id]);
+      // let alertDeleteProduct = document.getElementById("toast")
+
+      productList.splice(id, 1);
+        localStorage.setItem("productList", JSON.stringify(productList));
+        renderList();
+    }
+
 
 
   </script>

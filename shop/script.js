@@ -39,23 +39,32 @@ searchBtn.addEventListener('click', () => {
 
 // giỏ hàng
 let listProductBuy = JSON.parse(localStorage.getItem("listProductBuy"));
+let listProduct = JSON.parse(localStorage.getItem("listProduct"));
 function buy(id) {
     if (flag == "") {
         window.location.href = "./login.html";
     }
+    // console.log(flag);
     let priceProduct = Number(document.getElementsByClassName("price")[id].textContent.replace(/,/g, ''));
-    console.log(priceProduct);
-    let nameProduct = document.getElementsByClassName("title")[id].textContent;
+    // console.log(priceProduct);
+    let nameProduct = document.getElementsByClassName("card-title")[id].textContent;
+    let codeProduct = listProduct[id].code
     // console.log(nameProduct);
     if (listProductBuy == null) {
         listProductBuy = [];
     }
+    // console.log("code",codeProduct);
+    // console.log("username",flag);
     let productBuy = {
+        username: flag,
         name: nameProduct,
+        code: codeProduct,
         price: priceProduct,
+        img:listProduct[id].image,
         quantity: 1,
     }
-    index = listProductBuy.findIndex(s => s.name === nameProduct);
+    index = listProductBuy.findIndex(s => s.code === codeProduct && s.username == flag);
+    console.log(index);
     if (index !== -1) {
         listProductBuy[index].quantity++;
     } else {
@@ -63,35 +72,106 @@ function buy(id) {
     }
     console.log(listProductBuy);
     localStorage.setItem("listProductBuy", JSON.stringify(listProductBuy));
-
-
-
-
-    
 }
 
 // Hiển thị sản phẩm trên index.html
 function renderProduct() {
-    let listProduct = JSON.parse(localStorage.getItem("listProduct"));
     let productContainer = ""
     for (let i = 0; i < listProduct.length; i++) {
-        productContainer += `
-        <div class="box" id="box">
-        <div class="boxImg">
-            <img class="imgProduct" src="${listProduct[i].image}" />
-        </div>
-        <div class="content">
-        <h3 class="title"> ${listProduct[i].name} </h3>
-        <p class="describe">${listProduct[i].describe}</p>
-        <div class="order">
-            <span class="price"> ${listProduct[i].price.toLocaleString('en-US')} </span>
-            <button href="#" onclick="buy(0)">ORDER</button>
-        </div>
-    </div>
-    </div>
-`
+        productContainer += `            
+        <div class="card col-5 col-lg-3 col-xl-3" style="margin: 10px 10px">
+            <div class="boxImg">
+                <img class="card-img-top" src="${listProduct[i].image}" />
+            </div>
+            <div class="card-body">
+                <h3 class="card-title" style="text-align:center"> ${listProduct[i].name} </h3>
+                <div class="order" style="">
+                    <span class="price"> ${listProduct[i].price.toLocaleString('en-US')} </span>
+                    <button type="button" class="btn btn-lg buttonBuy" style="margin:0; padding:10px 5px;"
+                    data-toggle="modal" data-target="#myModal" onclick="view(${i})">
+                    Chi tiết
+                    </button>
+                    </div>
+                    </div>
+                    </div>`;
+        // <button style="padding: 10px" href="#" class="buttonBuy" onclick="buy(${i})">Thêm vào giỏ hàng</button>
         document.getElementById("box-container").innerHTML = productContainer;
     }
 }
 renderProduct();
+
+// Lấy các button được tạo ra từ dữ liệu trong localStorage
+const buttons = document.querySelectorAll('.buttonBuy');
+
+// Thêm sự kiện "click" vào từng button
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // Hiển thị modal pop up
+    $('#myModal').modal('show');
+  });
+});
+
+
+function view(id) {
+document.getElementById("myModalLabel").innerHTML=`<b>${listProduct[id].name}</b>`;
+document.getElementById("modal-price").innerHTML = listProduct[id].price.toLocaleString('en-US');
+document.getElementById("productViewName").innerHTML= listProduct[id].describe;
+document.getElementById("modal-img").innerHTML=`<img class="card-img-top" src="${listProduct[id].image}" />`
+document.getElementById("modal-footer").innerHTML=`
+<button style="font-size: 15px;" type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">Đóng
+</button>
+<button style="font-size: 15px;background-color: rgb(236, 0, 139);border:none" type="button" 
+class="btn btn-primary" onclick="buy(${id})">Thêm vào giỏ hàng</button>
+`;
+renderProductBuy();
+$('#myModal').modal('hide')
+}
+function closeModal(){
+    $('#myModal').modal('hide')
+}
+
+function renderProductBuy() {
+    let listProductBuy = JSON.parse(localStorage.getItem("listProductBuy"));
+    let productBuy="";
+    console.log(flag);
+    for (let i=0;i<listProductBuy.length;i++){
+        if (listProductBuy[i].username==flag){
+            productBuy+=`<tbody><tr>
+            <td rowspan="3" style="width:30%"><img class="card-img-top" src="${listProductBuy[i].img}" /></td>
+            </tr>
+            <tr><td>${listProductBuy[i].name}</td></tr>
+            <tr><td>${listProductBuy[i].price}</td></tr>
+            <tr><td><button onclick="downP(${i})">-</button> ${listProductBuy[i].quantity}<button onclick="upP(${i})">+</button></td>
+        </tr></tbody>`;
+        }
+        document.getElementById("productBuy").innerHTML=productBuy;
+    }
+
+}
+renderProductBuy();
+
+function upP(index) {
+    listProductBuy[index].quantity++;
+    localStorage.setItem("listProductBuy", JSON.stringify(listProductBuy));
+    renderProductBuy();
+    renderCount();
+}
+function downP(index) {
+    listProductBuy[index].quantity--;
+    localStorage.setItem("listProductBuy", JSON.stringify(listProductBuy));
+    renderProductBuy();
+    renderCount();
+}
+
+
+function renderCount() {
+    let sum = 0;
+    for (i = 0; i < listProductBuy.length; i++) {
+        if (listProductBuy[i].username==flag){
+            sum += listProductBuy[i].quantity;
+    }
+}
+    // let result = sum;
+    // document.getElementById("").innerHTML = result;
+}
 
