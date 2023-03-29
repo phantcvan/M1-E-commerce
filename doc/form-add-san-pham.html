@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Thêm sản phẩm | Quản trị Admin</title>
+  <title>Thêm mới sản phẩm</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -131,6 +131,16 @@
       transform: rotate(-45deg);
       margin-top: -2px;
     }
+    @media (max-width:991px) {
+    .show{
+    margin-left: 80px;
+    }
+  }
+  @media (max-width:600px) {
+    .show{
+    margin-left: 0px;
+    }
+  }
   </style>
   <!-- Navbar-->
   <header class="app-header">
@@ -185,19 +195,17 @@
             <div class="row element-button">
               <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
-                    class="fas fa-folder-plus" id="addOptionButton"></i>Thêm danh mục mới</a>
+                    class="fas fa-folder-plus" id="addOptionButton"></i> Chỉnh sửa danh mục mới</a>
               </div>
             </div>
             <form class="row">
               <div class="form-group col-md-3">
                 <label for="list" class="control-label">Danh mục</label>
                 <select class="form-control" id="list" onchange="makeCode()">
-                  <option>-- Chọn danh mục --</option>
-                  <option value="Giày">Giày</option>
-                  <option value="Khuyên tai">Khuyên tai</option>
+                  <!-- <option value="Khuyên tai">Khuyên tai</option>
                   <option value="Vòng cổ">Vòng cổ</option>
                   <option value="Túi xách">Túi xách</option>
-                  <option value="Hoa cài tóc">Hoa cài tóc</option>
+                  <option value="Hoa cài tóc">Hoa cài tóc</option> -->
                 </select>
               </div>
               <div class="form-group col-md-4">
@@ -252,7 +260,7 @@
           <div class="row">
             <div class="form-group  col-md-12">
               <span class="thong-tin-thanh-toan">
-                <h5>Thêm mới danh mục </h5>
+                <h5>Chỉnh sửa danh mục </h5>
               </span>
             </div>
             <div class="form-group col-md-12">
@@ -261,16 +269,18 @@
             </div>
             <div class="form-group col-md-12">
               <label class="control-label">Danh mục sản phẩm hiện đang có</label>
-              <ul style="padding-left: 20px;" id="listRender">
+              <div class="row" style="padding-left: 20px;">
+                <table id="listRender" style="width: 50%;text-align: center;margin: 0 auto;">
 
+                </table>
                 <!-- <li>Giày</li>
                 <li>Khuyên tai</li>
                 <li>Vòng cổ</li>
                 <li>Túi xách</li>
                 <li>Hoa cài tóc</li> -->
-              </ul>
+              </div>
             </div>
-            <p id="newListNoti"></p>
+            <p id="newListNoti" style="margin: 0px 10px;color:red;font-size: 1.2rem;font-weight:500"></p>
           </div>
           <BR>
           <button class="btn btn-save" type="button" onclick="saveList()">Lưu lại</button>
@@ -400,43 +410,32 @@ MODAL
         location.reload();
       }, 100);
     }
-
-
-    // Thêm danh mục
-    //     addOptionButton.addEventListener('click', () => {
-    //   const newOption = document.getElementById("newOption").value;
-    //   if (newOption) {
-    //     const optionElement = document.createElement('option');
-    //     optionElement.value = newOption;
-    //     optionElement.text = newOption;
-    //     list.add(optionElement);
-    //     localStorage.setItem('list', list.innerHTML);
-    //   }
-    // });
     let productList = JSON.parse(localStorage.getItem('productList'))
     function saveList() {
-      let newOption = document.getElementById("newOption").value;
-      if (newOption=="") {
-        document.getElementById("newListNoti").innerHTML = `Hãy nhập danh mục hàng mới`
+      let newOptionInput = document.getElementById("newOption").value;
+      if (newOptionInput == "") {
+        document.getElementById("newListNoti").innerHTML = `Hãy nhập danh mục hàng mới!`
         return;
       }
       if (productList == null) {
         productList = [];
-        productList.push(newOption);
-        localStorage.setItem("productList", JSON.stringify(productList));
-        setTimeout(function () {
-            location.reload();
-          }, 100);
-
-        return;
+        console.log(productList);
+        // productList.push(newOptionInput);
+        // localStorage.setItem("productList", JSON.stringify(productList));
+        // setTimeout(function () {
+        //     location.reload();
+        //   }, 100);
+        // renderList();
+        // return;
       }
-      for (i = 0; i < productList.length; i++) {
-        if (productList[i] != newOption) {
-          productList.push(newOption);
+      for (i = 0; i <= productList.length; i++) {
+        if (productList[i] != newOptionInput) {
+          productList.push(newOptionInput);
           localStorage.setItem("productList", JSON.stringify(productList));
           setTimeout(function () {
             location.reload();
           }, 100);
+          renderList();
           return;
         }
         else {
@@ -444,25 +443,35 @@ MODAL
           return;
         }
       }
+      
     }
     function renderList() {
-      let productList = JSON.parse(localStorage.getItem('productList'))
+      let productList = JSON.parse(localStorage.getItem('productList'));
       console.log(productList);
       let resultList = "";
       for (i = 0; i < productList.length; i++) {
-        resultList += `<li>${productList[i]}<i class="fas fa-edit" onclick="listDelete(${i})"> Xoá</li>`
+        resultList += `<tr>
+                    <td style="border:none">${productList[i]}</td>
+                    <td style="border:none"><button style="border:none; background-color:#fff" onclick="listDelete(${i})">
+                      <i class="fas fa-trash-alt"></i> Xoá</button></td>
+                  </tr>`
       }
       document.getElementById("listRender").innerHTML = resultList;
+      let optionList="<option>-- Chọn danh mục --</option>"
+      for (let index = 0; index < productList.length; index++) {
+        optionList+=`<option>${productList[index]}</option>`;
+      }
+      document.getElementById("list").innerHTML=optionList;
     }
     renderList();
 
     function listDelete(id) {
-      // console.log(listProduct[id]);
+      // console.log(listDelete);
       // let alertDeleteProduct = document.getElementById("toast")
 
       productList.splice(id, 1);
-        localStorage.setItem("productList", JSON.stringify(productList));
-        renderList();
+      localStorage.setItem("productList", JSON.stringify(productList));
+      renderList();
     }
 
 

@@ -47,35 +47,68 @@
 
         <p id="logout"></p>
         <div class="cart" id="cart">
-            <p id="noti"></p>
             <button style="border: none;background-color: white;" class="btn btn-primary" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+                onclick="closeModal()">
                 <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(56,9,21)"></i>
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-            aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header" style="margin-top: 1vh;">
-                    <h1 class="offcanvas-title" id="offcanvasRightLabel" style="color:rgb(56,9,21);">
+                aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header" style="margin: 1vh 5px;">
+                    <h1 class="offcanvas-title" id="offcanvasRightLabel"
+                        style="font-size: 20px;color:rgb(56,9,21);text-align: center;width:85%">
                         <b>GIỎ HÀNG</b>
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body" >
+                <div id="offcanvas-body">
+                    <div id="noti" style="margin: 10px; font-size: 13px;color:rgb(56,9,21);">
+                        <!-- <div class="row">
+                            <div class="form-group col-6">
+                                <label class="control-label">Tên người nhận:</label>
+                                <input style="padding:5px" class="form-control" type="text" required id="payClient">
+                            </div>
+                            <div class="form-group col-6">
+                                <label class="control-label">Số điện thoại nhận hàng:</label>
+                                <input style="padding:5px"  class="form-control" type="number" required id="payTel">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Địa chỉ nhận hàng:</label>
+                                <input style="padding:5px"  class="form-control" type="text" required id="payAddress">
+                            </div>
+                        </div> -->
+                    </div>
                     <table id="productBuy">
                         <!-- <tr>
-                            <td rowspan="3">Ảnh </td>
-                            <td>Tên sản phẩm</td>
-                            <td>Giá sản phẩm</td>
-                            <td><button>-</button></td>
-                            <td>Số lượng</td>
-                            <td><button>+</button></td>
-                        </tr> -->
+                                <td rowspan="3">Ảnh </td>
+                                <td>Tên sản phẩm</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 15px;margin-left:10px">Giá sản phẩm</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 15px;margin-left:10px"><button>-</button></td>
+                                <td style="font-size: 15px;margin-left:10px">Số lượng</td>
+                                <td style="font-size: 15px;margin-left:10px"><button>+</button></td>
+                            </tr> -->
                     </table>
+
+                    <div style="margin:10px; display: flex;justify-content: space-around;align-items: center;">
+                        <div>
+                            <span style="color:rgb(56,9,21);font-size: 16px;">Tổng tiền hàng: </span>
+                            <span style="font-size: 20px" id="totalAmount"></span>
+                        </div>
+                        <div id="totalButton">
+                        </div>
+                    </div>
                 </div>
             </div>
-    
         </div>
-    
+
+
+
         <form action="" class="search-bar-container">
             <input type="search" id="search-bar" placeholder="Tìm kiếm...">
             <label for="search-bar" class="fas fa-search"></label>
@@ -87,17 +120,16 @@
 
     <!-- home section starts  -->
 
-    <section class="home" id="home">
+    <div class="home" id="home">
 
-        <div class="content">
-            <h3>A new journey begins...</h3>
+        <div class="content" style="overflow: hidden;">
+            <div class="img-container">
+                <img style="object-fit: cover" src="./images/selectingtheperfectflowervase.png" alt="">
+            </div>
+
         </div>
 
-        <div class="video-container">
-            <video src="./shop/images/vid-1.mp4" id="video-slider" loop autoplay muted></video>
-        </div>
-
-    </section>
+    </div>
 
     <!-- home section ends -->
 
@@ -126,10 +158,10 @@
     <!-- book section ends -->
 
     <!-- packages section starts  -->
-    <section class="accessories" id="product">
+    <div class="accessories" id="product">
 
         <h1 class="heading"><span>SẢN PHẨM</span> </h1>
-        <div class="row" id="box-container" style="display: flex;justify-content: space-between;">
+        <div class="row" id="box-container" style="display: flex;justify-content:space-evenly;">
 
             <!-- </div> -->
         </div>
@@ -140,29 +172,29 @@
             </div>
  -->
 
-    </section>
+    </div>
 
 
     <!-- MODAL Chi tiết sản phẩm -->
     <div class="modal" id="myModal">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 style="text-align: center; margin: 5px auto;" class="modal-title title" id="myModalLabel"></h3>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="text-align: center; margin: 5px auto;" class="modal-title title" id="myModalLabel"></h3>
+                </div>
+                <div class="modal-body" style="display: flex;">
+                    <div style="width:50%;" id="modal-img"></div>
+                    <div style="width:49%;margin: 5px 10px">
+                        <span class="price" id="modal-price"></span>
+                        <p class="describe" id="productViewName"></p>
+                    </div>
+                </div>
+                <div class="modal-footer" id="modal-footer">
+                </div>
             </div>
-            <div class="modal-body" style="display: flex;">
-                <div style="width:50%" id="modal-img"></div>
-                <div style="width:49%;margin: 5px 10px" >
-                <span class="price" id="modal-price"></span>
-                <p class="describe"  id="productViewName"></p>
-            </div>
-            </div>
-            <div class="modal-footer" id="modal-footer">
-            </div>
-          </div>
         </div>
-      </div>
-          <!-- END MODAL -->
+    </div>
+    <!-- END MODAL -->
 
 
     <!-- footer section  -->

@@ -323,7 +323,7 @@ MODAL
                           <th style="text-align:center" class="col-1">Số lượng</th>
                           <th style="text-align:center" class="col-1">Tình trạng</th>
                           <th style="text-align:center"  class="col-1">Giá tiền</th>
-                          <th style="text-align:center" colspan="2"  class="col-1">Chức năng</th>
+                          <th style="text-align:center" colspan="2" class="col-1">Chức năng</th>
                         </tr>`;
       for (let i = 0; i < listProduct.length; i++) {
         if (listProduct[i].name.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -376,12 +376,17 @@ MODAL
         let newList = document.getElementById("list").value;
         listProduct[id].list = newList;
         localStorage.setItem("listProduct", JSON.stringify(listProduct));
+        // closeModal();
         renderProduct();
         console.log(listProduct[id]);
         setTimeout(() => { window.location.href = "./data-product.html"; }, 500)
         return;
       });
     }
+
+
+
+
     function deleteProduct(id) {
       // console.log(listProduct[id]);
       // let alertDeleteProduct = document.getElementById("toast")
@@ -394,7 +399,7 @@ MODAL
     }
 
     function closeModal(){
-    $('#myModal').modal('hide')
+    $('#modal').modal('hide')
 }
 
   </script>

@@ -128,6 +128,7 @@
             let result = document.getElementById("toast-body");
             // Đăng nhập Admin
             if (username == 'admin' && password == "123456") {
+                localStorage.setItem("flag", username);
                 result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                 <div class="toast-header">
                     <strong class="mr-auto" style="font-size:18px">Đăng nhập thành công</strong>
