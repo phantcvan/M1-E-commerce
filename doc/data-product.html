@@ -79,7 +79,7 @@
     </div>
     <hr>
     <ul class="app-menu">
-      <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+      <li><a class="app-menu__item " href="admin.html"><i class='app-menu__icon bx bx-tachometer'></i><span
             class="app-menu__label">Bảng điều khiển</span></a></li>
       <li><a class="app-menu__item " href="data-user.html"><i class='app-menu__icon bx bx-id-card'></i>
           <span class="app-menu__label">Quản lý khách hàng</span></a></li>
@@ -220,7 +220,7 @@ MODAL
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <!-- Load Bootstrap JS last -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
+  <!-- <script src="js/main.js"></script> -->
 
   <script type="text/javascript">
     // $('#sampleTable').DataTable();
@@ -270,15 +270,15 @@ MODAL
     function renderProduct() {
 
       let productList = `<tr style="text-align:center">
-                          <th style="text-align:center" class="col-1">TT</th>
-                          <th style="text-align:center" class="col-1">Mã sản phẩm</th>
-                          <th style="text-align:center" class="col-1">Danh mục</th>
-                          <th style="text-align:center" class="col-1">Tên sản phẩm</th>
-                          <th style="text-align:center" class="col-1">Ảnh</th>
-                          <th style="text-align:center" class="col-1">Số lượng</th>
-                          <th style="text-align:center" class="col-1">Tình trạng</th>
-                          <th style="text-align:center"  class="col-1">Giá tiền</th>
-                          <th style="text-align:center" colspan="2"  class="col-1">Chức năng</th>
+                          <th style="text-align:center;width:3%">TT</th>
+                          <th style="text-align:center;width:8%">Mã sản phẩm</th>
+                          <th style="text-align:center;width:6%">Danh mục</th>
+                          <th style="text-align:center;width:10%">Tên sản phẩm</th>
+                          <th style="text-align:center;width:8%">Ảnh</th>
+                          <th style="text-align:center;width:5%">Số lượng</th>
+                          <th style="text-align:center;width:6%">Tình trạng</th>
+                          <th style="text-align:center;width:8%">Giá tiền</th>
+                          <th style="text-align:center;width:15%" colspan="2">Chức năng</th>
                         </tr>`;
       for (let i = 0; i < listProduct.length; i++) {
         productList += `
@@ -291,10 +291,10 @@ MODAL
         <td>${listProduct[i].quantity}</td>
         <td>${listProduct[i].status}</td>
         <td>${(listProduct[i].price).toLocaleString('en-US')}</td>
-        <td class="btn btn-sm edit" style="border:none; background-color:rgb(255, 212, 59);" type="button" title="Sửa" id="show-emp"
+        <td class="btn btn-warning" style="border:none; background-color:rgb(255, 212, 59);margin-right:5px" type="button" title="Sửa" id="show-emp"
           data-toggle="modal" data-target="#ModalUP"> 
           <i class="fas fa-edit" onclick="productInfo(${i})"> Sửa </td>
-        <td class="btn btn-sm trash" title="Xóa" onclick="deleteProduct(${i})">
+        <td class="btn btn-danger" title="Xóa" onclick="deleteProduct(${i})">
           <i class="fas fa-trash-alt"></i> Xoá </td>
       </tr>
     `;

@@ -26,4 +26,20 @@
 
 })();
 
+let listUser = JSON.parse(localStorage.getItem("listUser"));
+if (listUser == null) {
+	listUser = []
+}
+document.getElementById("userQuantity").innerHTML=listUser.length;
+let listProduct = JSON.parse(localStorage.getItem("listProduct"));
+if (listProduct == null) {
+	listProduct = []
+}
+document.getElementById("productQuantity").innerHTML=listProduct.length;
+let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+if (renderOrder == null) {
+	renderOrder = []
+}
+document.getElementById("orderQuantity").innerHTML=renderOrder.length;
+
 

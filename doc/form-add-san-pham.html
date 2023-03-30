@@ -168,7 +168,7 @@
     </div>
     <hr>
     <ul class="app-menu">
-      <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+      <li><a class="app-menu__item " href="admin.html"><i class='app-menu__icon bx bx-tachometer'></i><span
             class="app-menu__label">Bảng điều khiển</span></a></li>
       <li><a class="app-menu__item " href="data-user.html"><i class='app-menu__icon bx bx-id-card'></i>
           <span class="app-menu__label">Quản lý khách hàng</span></a></li>
@@ -195,7 +195,7 @@
             <div class="row element-button">
               <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
-                    class="fas fa-folder-plus" id="addOptionButton"></i> Chỉnh sửa danh mục mới</a>
+                    class="fas fa-folder-plus" id="addOptionButton"></i> Chỉnh sửa danh mục</a>
               </div>
             </div>
             <form class="row">
@@ -362,7 +362,7 @@ MODAL
       console.log(code);
       // document.getElementById("code").innerHTML = result
       let nameProduct = document.getElementById("nameProduct").value;
-      let quantity = document.getElementById("quantity").value;
+      let quantity = Number(document.getElementById("quantity").value);
       let list = document.getElementById("list").value;
       let price = Number(document.getElementById("price").value);
       let describe = document.getElementById("describe").value;
@@ -411,7 +411,10 @@ MODAL
       }, 100);
     }
     let productList = JSON.parse(localStorage.getItem('productList'))
+    // Lưu danh mục sản phẩm
     function saveList() {
+      let productList = JSON.parse(localStorage.getItem('productList'))
+
       let newOptionInput = document.getElementById("newOption").value;
       if (newOptionInput == "") {
         document.getElementById("newListNoti").innerHTML = `Hãy nhập danh mục hàng mới!`
@@ -419,14 +422,6 @@ MODAL
       }
       if (productList == null) {
         productList = [];
-        console.log(productList);
-        // productList.push(newOptionInput);
-        // localStorage.setItem("productList", JSON.stringify(productList));
-        // setTimeout(function () {
-        //     location.reload();
-        //   }, 100);
-        // renderList();
-        // return;
       }
       for (i = 0; i <= productList.length; i++) {
         if (productList[i] != newOptionInput) {
@@ -443,8 +438,9 @@ MODAL
           return;
         }
       }
-      
     }
+
+    // In Danh mục sản phẩm
     function renderList() {
       let productList = JSON.parse(localStorage.getItem('productList'));
       console.log(productList);

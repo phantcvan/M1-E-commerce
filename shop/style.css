@@ -472,6 +472,44 @@ header .search-bar-container label:hover {
   color: rgb(56, 9, 21);
 }
 
+.buttonListActive {
+  background-color: rgb(253, 148, 209);
+  color: rgb(56, 9, 21);
+  font-size: 1.7rem;
+  border-radius: 5px;
+  padding: 0rem .3rem;
+  font-size: 2rem;
+  padding: 5px 15px;
+  margin: 5px 10px;
+  border: none;
+  background: rgb(251, 33, 117);
+  background: linear-gradient(0deg, rgba(251, 33, 117, 1) 0%, rgba(234, 76, 137, 1) 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.buttonListActive:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.buttonListActive:hover {
+  opacity: .7;
+}
+
+.buttonListDis {
+  border: 2px solid rgb(253, 148, 209);
+  background-color: #fff;
+  color: rgb(56, 9, 21);
+  font-size: 1.7rem;
+  border-radius: 5px;
+  padding: 0rem .3rem;
+  font-size: 2rem;
+  padding: 5px 15px;
+  margin: 5px 10px;
+
+}
+
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css");
 
 .fade-scale {
@@ -505,8 +543,13 @@ header .search-bar-container label:hover {
   border-radius: 10px;
   /* height: 60px; */
   margin-top: -20px;
-
 }
+
+#offcanvas-body {
+  height: 100%;
+  overflow: scroll;
+}
+
 
 .new-div {
   animation-name: slideIn;

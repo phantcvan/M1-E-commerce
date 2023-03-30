@@ -32,6 +32,7 @@
 
         <a href="#" class="logo"><img class="logo" src="./images/logo.png" /></a>
 
+
         <nav class="navbar">
             <a href="#home">trang chủ</a>
             <a href="#aboutUs">về chúng tôi</a>
@@ -50,7 +51,8 @@
             <button style="border: none;background-color: white;" class="btn btn-primary" type="button"
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
                 onclick="closeModal()">
-                <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(56,9,21)"></i>
+                <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(56,9,21)"
+                    onclick="renderProductBuy()"></i>
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
                 aria-labelledby="offcanvasRightLabel">
@@ -96,9 +98,8 @@
                     </table>
 
                     <div style="margin:10px; display: flex;justify-content: space-around;align-items: center;">
-                        <div>
-                            <span style="color:rgb(56,9,21);font-size: 16px;">Tổng tiền hàng: </span>
-                            <span style="font-size: 20px" id="totalAmount"></span>
+                        <div id="totalAmount">
+
                         </div>
                         <div id="totalButton">
                         </div>
@@ -161,6 +162,9 @@
     <div class="accessories" id="product">
 
         <h1 class="heading"><span>SẢN PHẨM</span> </h1>
+        <div id="list" style="margin: 5px 10px;">
+            <!-- <button class="buttonList" onclick="renderProduct()">${productList[i]}</button> -->
+        </div>
         <div class="row" id="box-container" style="display: flex;justify-content:space-evenly;">
 
             <!-- </div> -->

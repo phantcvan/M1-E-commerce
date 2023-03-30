@@ -64,7 +64,7 @@
     </div>
     <hr>
     <ul class="app-menu">
-      <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+      <li><a class="app-menu__item " href="admin.html"><i class='app-menu__icon bx bx-tachometer'></i><span
             class="app-menu__label">Bảng điều khiển</span></a></li>
       <li><a class="app-menu__item active" href="tdata-user.html"><i class='app-menu__icon bx bx-id-card'></i>
           <span class="app-menu__label">Quản lý khách hàng</span></a></li>
@@ -216,13 +216,13 @@
       }
       let result = `
                 <tr>
-                  <th style="text-align:center">TT</th>
-                  <th style="text-align:center" class="col-2">Tên đăng nhập</th>
-                  <th style="text-align:center" class="col-2">Email</th>
-                  <th style="text-align:center" class="col-2">Số điện thoại</th>
-                  <th style="text-align:center" class="col-2">Ghi chú</th>
-                  <th style="text-align:center" class="col-2">Tình trạng</th>
-                  <th style="text-align:center" colspan="2"  class="col-1">Tính năng</th>
+                  <th style="text-align:center;width:3%">TT</th>
+                  <th style="text-align:center;width:15%">Tên đăng nhập</th>
+                  <th style="text-align:center;width:15%">Email</th>
+                  <th style="text-align:center;width:15%">Số điện thoại</th>
+                  <th style="text-align:center;width:20%">Ghi chú</th>
+                  <th style="text-align:center;width:15%" >Tình trạng</th>
+                  <th style="text-align:center;width:17%" colspan="2" >Tính năng</th>
                 </tr>
 
                 `;
@@ -235,10 +235,10 @@
                             <td> ${listUser[i].telephone} </td>
                             <td> ${listUser[i].note} </td>
                             <td> ${listUser[i].status} </td>
-                            <td class="btn btn-sm edit" style="border:none; background-color:rgb(255, 212, 59);" type="button" title="Sửa" id="show-emp"
+                            <td class="btn btn-warning" style="border:none; background-color:rgb(255, 212, 59);margin-right:5px" type="button" title="Sửa" id="show-emp"
                               data-toggle="modal" data-target="#ModalUP"> 
                               <i class="fas fa-edit" onclick="note(${i})"> Sửa </td>
-                            <td class="btn btn-sm trash" title="Xóa" onclick="deleteUser(${i})">
+                            <td class="btn btn-danger" title="Xóa" onclick="deleteUser(${i})">
                               <i class="fas fa-trash-alt"></i> Xoá </td>
                         </tr>`;
       }
