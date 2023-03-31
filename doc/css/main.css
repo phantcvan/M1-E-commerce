@@ -13596,7 +13596,7 @@ be a descendant of the grid when it is being dragged.
 
 /*----- Componant: Top Navigation Bar ----- */
 .app-header {
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   right: 0;
   top: 0;
@@ -13681,7 +13681,7 @@ be a descendant of the grid when it is being dragged.
 
 .app-sidebar__toggle:before {
   content: "\f009";
-  font-size: 15px;
+  font-size: 30px;
 }
 
 .bx {
@@ -13905,7 +13905,7 @@ be a descendant of the grid when it is being dragged.
   margin-bottom: 10px;
 }
 .info-tong{
-  font-size: 12px !important;
+  font-size: 15px !important;
   margin-top: 5px !important;
   border-top: 1px dashed #e8e8e8;
   padding-top: 10px !important;
@@ -14753,7 +14753,7 @@ be a descendant of the grid when it is being dragged.
       -ms-flex: 1;
           flex: 1;
   padding: 0 20px;
-  height: 30vh;
+  height: 10vh;
   -ms-flex-item-align: center;
       align-self: center;
 }

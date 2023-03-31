@@ -208,9 +208,9 @@
       }
     }
     // lấy dữ liệu người dùng từ local
-    let listUser = JSON.parse(localStorage.getItem("listUser"));
     // In dữ liệu người dùng ra màn hình
     function renderUser() {
+      let listUser = JSON.parse(localStorage.getItem("listUser"));
       if (listUser == null) {
         listUser = [];
       }

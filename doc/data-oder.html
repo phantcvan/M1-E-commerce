@@ -68,17 +68,10 @@
       <div id="clock"></div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-12">
         <div class="tile">
-          <div class="tile-body">
-            <!-- <div class="row element-button">
-              <div class="col-sm-2">
-
-                <a class="btn btn-add btn-sm" href="form-add-don-hang.html" title="Thêm"><i class="fas fa-plus"></i>
-                  Tạo mới đơn hàng</a>
-              </div>
-            </div> -->
-            <table class="table table-hover table-bordered" id="renderOrder">
+          <div class="tile-body" style="overflow-x: auto;">
+            <table class="table table-hover table-bordered " id="renderOrder" style="width:100%">
               <!-- <tr>
                     <th>TT</th>
                     <th class="col-1">ID đơn hàng</th>
@@ -94,70 +87,15 @@
       </div>
     </div>
   </main>
-  <!--
-  MODAL
--->
-  <!-- <div class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-    data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="row">
-            <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Chỉnh sửa thông tin đơn hàng</h5>
-              </span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label for="exampleSelect1" class="control-label">Tình trạng</label>
-              <select class="form-control" id="statusSelect">
-                <option value="Đang hoạt động" id="active">Đang hoạt động</option>
-                <option value="Bị hạn chế" id="banned">Bị hạn chế</option>
-              </select>
-            </div>
-          </div>
-          <BR>
-          <BR>
-          <button class="btn btn-save" type="button" value="1">Lưu lại</button>
-          <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-          <BR>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div> -->
-  <!--
-  MODAL
--->
 
-  <!-- Essential javascripts for application to work -->
-  <!-- <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="src/jquery.table2excel.js"></script>
-  <script src="js/main.js"></script> -->
-  <!-- The javascript plugin to display page loading on top-->
-  <!-- <script src="js/plugins/pace.min.js"></script> -->
-  <!-- Page specific javascripts-->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script> -->
-  <!-- Data table plugin-->
-  <!-- <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript">$('#sampleTable').DataTable();</script> -->
 
   <!-- Load jQuery first -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <!-- Load Popper.js next -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <!-- Load Bootstrap JS last -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
 
 
 
@@ -182,7 +120,7 @@
       // var s = today.getSeconds();
       m = checkTime(m);
       // s = checkTime(s);
-      nowTime = h + " giờ " + m + " phút " ;
+      nowTime = h + " giờ " + m + " phút ";
       if (dd < 10) {
         dd = '0' + dd
       }
@@ -207,27 +145,37 @@
       let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
       if (renderOrder == null) {
         renderOrder = [];
-    }
-
+      }
       let listPay = JSON.parse(localStorage.getItem("listPay"));
       let grouped = {};
       listPay.forEach(item => {
         let key = `${item.username}_${item.orderID.toString().padStart(3, '0')}`;
+        let order = `${item.name}- sl:${item.quantity}`;
         if (!grouped[key]) {
           grouped[key] = {
             username: item.username,
             orderID: key,
             name: [],
             price: 0,
-            address:item.customAdd,
-            telephone:item.customTel,
+            address: item.customAdd,
+            telephone: item.customTel,
+            status: ""
           };
         }
-        grouped[key].name.push(item.name);
+        grouped[key].name.push(order);
         grouped[key].price += item.price;
       });
-      let orderManage = Object.values(grouped);
 
+      renderOrder.forEach(item => {
+        let id = item.orderID;
+        if (!grouped[id]) {
+          grouped[id].status = "Đang xử lý";
+        }
+        grouped[id].status = item.status;
+
+      });
+      let orderManage = Object.values(grouped);
+      localStorage.setItem("orderManage", JSON.stringify(orderManage));
       let ordered = `<tr>
                     <th style="text-align:center;width:3%">TT</th>
                     <th style="text-align:center;width:10%">ID đơn hàng</th>
@@ -238,27 +186,78 @@
                     <th style="text-align:center;width:12%">Số ĐT nhận hàng</th>
                     <th style="text-align:center;width:19%">Tình trạng</th>
                   </tr>`;
-      for (i = (orderManage.length-1); i >=0; i--) {
+
+      for (let i = (orderManage.length - 1); i >= 0; i--) {
+        // `statusSelect${i}`.value
+        // console.log("TRẠNG THÁI",`statusSelect${i}`.value);
+      
+        let status = renderOrder[i] ? renderOrder[i].status : "Đang xử lý"; // Lấy giá trị status từ renderOrder
         ordered += `<tr>
-                    <td style="text-align:center">${orderManage.length-i}</td>
+                    <td style="text-align:center">${orderManage.length - i}</td>
                     <td>${orderManage[i].orderID}</td>
                     <td>${orderManage[i].username}</td>
                     <td>${orderManage[i].name}</td>
                     <td style="text-align:right">${orderManage[i].price.toLocaleString('en-US')}</td>
                     <td>${orderManage[i].address}</td>
                     <td>${orderManage[i].telephone}</td>
-                    <td> <select class="form-control" id="statusSelect">
-                          <option value="Đã hoàn thành">Đã hoàn thành</option>
-                          <option value="Đang vận chuyển">Đang vận chuyển</option>
-                          <option value="Bị huỷ">Bị huỷ</option>
-                        </select></td>
-                  </tr>`;
+                  <td>
+                    <select class="form-control" id="statusSelect${i}">
+                      <option ${status === "Đang xử lý" ? "selected" : ""} value="Đang xử lý" >Đang xử lý</option>
+                      <option ${status === "Đang vận chuyển" ? "selected" : ""} value="Đang vận chuyển">Đang vận chuyển</option>
+                      <option ${status === "Đã hoàn thành" ? "selected" : ""} value="Đã hoàn thành" >Đã hoàn thành</option>
+                      <option ${status === "Bị huỷ" ? "selected" : ""} value="Bị huỷ" >Bị huỷ</option>
+                    </select>
+                  </td>
+                </tr>`;
       }
-
       document.getElementById("renderOrder").innerHTML = ordered;
+      let result ="";
+      for (let i = 0; i < orderManage.length; i++) {
+    let statusSelect = document.getElementById(`statusSelect${i}`);
+    statusSelect.value = renderOrder[i] ? renderOrder[i].status : "0";
+    statusSelect.addEventListener("change", () => {
+      let statusNew = statusSelect.value;
+      orderManage[i].status = statusNew;
       localStorage.setItem("renderOrder", JSON.stringify(orderManage));
+    });
+  }
+      
     }
+  //   function renderStatus(){
+  //     let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+  //     for (let i = (renderOrder.length - 1); i >= 0; i--) {
+  //       let statusNew = document.getElementById(`statusSelect${i}`).value;
+
+  //       if (statusNew==0){
+  //           result="Đang xử lý";
+  //         } else if (statusNew==1){
+  //           result="Đang vận chuyển";
+  //         } else if (statusNew==2){
+  //           result="Đã hoàn thành";
+  //         }          
+  //         else if (statusNew==3){
+  //           result="Bị huỷ";
+  //         }
+       
+          
+  //   }
+  // }
     renderListPay()
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
 
     //Modal

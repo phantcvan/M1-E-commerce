@@ -51,20 +51,23 @@
             <button style="border: none;background-color: white;" class="btn btn-primary" type="button"
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
                 onclick="closeModal()">
-                <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(56,9,21)"
+                <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(61,33,24)"
                     onclick="renderProductBuy()"></i>
+                    <span id="totalProductCart">0</span>
+
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
                 aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-header" style="margin: 1vh 5px;">
                     <h1 class="offcanvas-title" id="offcanvasRightLabel"
-                        style="font-size: 20px;color:rgb(56,9,21);text-align: center;width:85%">
+                        style="font-size: 20px;color:rgb(61,33,24);text-align: center;width:85%">
                         <b>GIỎ HÀNG</b>
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div id="offcanvas-body">
-                    <div id="noti" style="margin: 10px; font-size: 13px;color:rgb(56,9,21);">
+                    <p id="request" style="margin: 10px; font-size: 15px; font-weight:550;color:rgb(236, 0, 139);"></p>
+                    <div id="noti" style="margin: 10px; font-size: 13px;color:rgb(61,33,24);">
                         <!-- <div class="row">
                             <div class="form-group col-6">
                                 <label class="control-label">Tên người nhận:</label>
@@ -200,49 +203,114 @@
     </div>
     <!-- END MODAL -->
 
+<!-- REVIEW -->
+<section class="review" id="review">
 
-    <!-- footer section  -->
+    <h1 class="heading"><span>ĐÁNH GIÁ</span> </h1>
 
-    <section class="footer">
+    <div class="swiper-container review-slider" >
+<div class="container-fluid">
+<div class="row" style="display: flex; justify-content: space-between;">
+            <!-- <div class="swiper-slide"> -->
+                <div class="box col-3" style="margin:0px 20px">
+                    <img src="./images/review1.jpg" alt="">
+                    <h3>Nguyễn Văn A</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!-- <div class="swiper-slide"> -->
+                <div class="box col-3" style="margin:0px 20px">
+                    <img src="./images/review2.jpg" alt="">
+                    <h3>Trần Văn B</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
 
-        <div class="box-container">
-
-            <div class="box">
-                <h3>about us</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda quas magni pariatur est
-                    accusantium voluptas enim nemo facilis sit debitis.</p>
-            </div>
-            <div class="box">
-                <h3>branch locations</h3>
-                <a href="#">india</a>
-                <a href="#">USA</a>
-                <a href="#">japan</a>
-                <a href="#">france</a>
-            </div>
-            <div class="box">
-                <h3>quick links</h3>
-                <a href="#">home</a>
-                <a href="#">book</a>
-                <a href="#">packages</a>
-                <a href="#">services</a>
-                <a href="#">gallery</a>
-                <a href="#">review</a>
-                <a href="#">contact</a>
-            </div>
-            <div class="box">
-                <h3>follow us</h3>
-                <a href="#">facebook</a>
-                <a href="#">instagram</a>
-                <a href="#">twitter</a>
-                <a href="#">linkedin</a>
-            </div>
+                    </div>
+                </div>
+            <!-- </div>
+            <div class="swiper-slide"> -->
+                <div class="box col-3" style="margin:0px 20px">
+                    <img src="./images/review3.jpg" alt="">
+                    <h3>Phạm Thị C</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!-- <div class="swiper-slide">
+                <div class="box col-3">
+                    <img src="" alt="">
+                    <h3>john deo</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+            </div> -->
 
         </div>
+    </div>
+</div>
 
-        <h1 class="credit"> created by <span> mr. web designer </span> | all rights reserved! </h1>
 
-    </section>
 
+</section>
+
+<!-- END REVIEW -->
+    <!-- footer section  -->
+
+    <section class="footer" id="contact">
+        <div class="box-container">
+          <div class="box col-5 col-lg-6">
+            <h3>Công ty cổ phần MIA</h3>
+            <p>Tel/Zalo: 0123123123</p>
+            <p>Địa chỉ liên hệ: 92 Tràng Thi, Hoàn Kiếm, Hà Nội</p>
+            <a href="https://www.facebook.com/phantcvan/">Facebook</a>
+          </div>
+          <div class="box col-3 col-lg-3">
+            <h3><a style="  font-size: 2.5rem;padding: .7rem 0;color: #fff;text-decoration: none;" href="index.html">
+                Trang chủ</a></h3>
+            <a href="#aboutUs">Về chúng tôi</a>
+            <a href="#product">Sản phẩm</a>
+            <a href="#review">Đánh giá</a>
+            <a href="#contact">Liên hệ</a>
+          </div>
+          <div class="box col-3 col-lg-2">
+            <h3>Hỗ trợ</h3>
+            <a href="#">Hỏi đáp</a>
+            <a href="#">Chính sách KHTT</a>
+            <a href="#">Chính sách vận chuyển</a>
+            <a href="#">Kiểm tra đơn hàng</a>
+
+
+          </div>
+        </div>
+  
+        <h1 class="credit">
+          <span style="color:rgb(236, 0, 139)"> MIA Bridal Accessories </span> | All Rights Reserved!
+        </h1>
+      </section>
     <script>
 
     </script>

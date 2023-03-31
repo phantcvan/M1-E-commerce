@@ -281,6 +281,7 @@ function downP(index) {
 function renderCount() {
     let listProductBuy = JSON.parse(localStorage.getItem("listProductBuy"));
     let quantityAll = 0;
+    console.log("SL HÀNG", quantityAll);
     let sum = 0;
     for (i = 0; i < listProductBuy.length; i++) {
         if (listProductBuy[i].username == flag) {
@@ -292,13 +293,13 @@ function renderCount() {
     document.getElementById("totalAmount").innerHTML = `<span style="color:rgb(56,9,21);font-size: 16px;">Tổng tiền hàng: </span>
     <span style="font-size: 20px">${sum.toLocaleString('en-US')}</span>`;
     document.getElementById("totalButton").innerHTML = `<button class="totalAmount" onclick="pay()">Mua hàng</button>`
+    localStorage.setItem("quantityCart", quantityAll);
+    document.getElementById("totalProductCart").innerHTML = quantityAll;
 }
 renderCount();
-
 // Yêu cầu người dùng nhập thông tin mua hàng
 function pay() {
     let sum1 = JSON.parse(localStorage.getItem("sum"));
-    console.log(sum1);
     if (sum1 == 0) {
         document.getElementById("totalAmount").innerHTML = ``
         document.getElementById("totalButton").innerHTML = `
@@ -336,6 +337,17 @@ function clientPay() {
     let customTel1 = document.getElementById("payTel").value;
     let customAdd1 = document.getElementById("payAddress").value;
     let listProductBuy = JSON.parse(localStorage.getItem("listProductBuy"));
+    // validate thông tin
+    if (customName1==""||customTel1==""||customAdd1==""){
+        document.getElementById("request").innerHTML=`Hãy nhập đầy đủ thông tin!`;
+        return;
+    }
+    if (customTel1.length<10){
+        document.getElementById("request").innerHTML=`Hãy nhập đúng số điện thoại!`;
+        return;
+    }
+
+
     // let sum1=JSON.parse(localStorage.getItem("sum"));
     // let flagOrder = false;
     for (let i = 0; i < listProductBuy.length; i++) {
@@ -381,10 +393,6 @@ function clientPay() {
 
 
 
-
-
-
-
     // Xoá hiển thị trên giỏ hàng
     // if (sum1==0){
     document.getElementById("noti").innerHTML = `<span style="color:rgb(56,9,21);font-size: 16px;">Đơn hàng thành công!</span>
@@ -397,17 +405,7 @@ function clientPay() {
         window.location = "./index.html#product";
     }, 500);
 
-    // Cập nhật kho hàng
-    // let listProduct = JSON.parse(localStorage.getItem("listProduct"));
-    // for (let i = 0; i < listProduct.length; i++) {
-    //     for (j=0;j<listProductBuy.length;j++){
-    //         if (listProduct[i]==listProductBuy[j]){
-    //             listProduct[i].quantity
-    //         }
-    //     }
-        
-    // }
-
+    
     // Xoá sp trên Local
     let listProductRemove = [];
     for (let i = 0; i < listProductBuy.length; i++) {
@@ -415,16 +413,14 @@ function clientPay() {
             listProductRemove.push(listProductBuy[i]);
         }
     }
-
+    
     localStorage.setItem("listProductBuy", JSON.stringify(listProductRemove));
-
+    
     // }
-
+    
     // document.getElementById("productBuy").style.display = "none";
     renderProductBuy();
     renderCount();
-
-
 
 
 }

@@ -38,7 +38,6 @@
         text-align: center;
         line-height: 1.8;
     }
-
 </style>
 
 <body>
@@ -68,13 +67,14 @@
                             </span>
                         </div>
                         <div class="wrap-input100 validate-input">
-                            <input autocomplete="off" class="input100" type="password" placeholder="Mật khẩu"
-                                name="current-password" id="password-field">
-                            <span toggle="#password-field" class="bx fa-fw bx-hide field-icon click-eye"></span>
+                            <input autocomplete="off" class="input100" type="password"
+                                placeholder="Mật khẩu (ít nhất 6 ký tự)" name="current-password" id="password">
+                            <i id="eye" onclick="show()" class="fa-solid fa-eye-slash field-icon click-eye"></i>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa-solid fa-lock"></i>
                             </span>
+
                         </div>
 
                         <!--=====ĐĂNG NHẬP======-->
@@ -102,6 +102,23 @@
 
 
     <script type="text/javascript">
+        let countEye = 0;
+        function show() {
+            let passwordInput = document.getElementById("password");
+            let eye = document.getElementById("eye");
+            countEye++;
+            if (countEye == 1) {
+                passwordInput.type = "text";
+                eye.classList.add("fa-eye");
+
+            }
+            else if (countEye == 2) {
+                passwordInput.type = "password";
+                eye.classList.remove("fa-eye");
+                countEye = 0;
+            }
+        }
+
         //show - hide mật khẩu
         function myFunction() {
             var x = document.getElementById("myInput");
@@ -123,7 +140,7 @@
         // Đăng nhập
         function login() {
             var username = document.getElementById("username").value;
-            var password = document.getElementById("password-field").value;
+            var password = document.getElementById("password").value;
             let listUser = JSON.parse(localStorage.getItem("listUser"));
             let result = document.getElementById("toast-body");
             // Đăng nhập Admin
@@ -163,8 +180,8 @@
 
             localStorage.setItem("listUser", JSON.stringify(listUser));
             for (i = 0; i < listUser.length; i++) {
-                if (listUser[i].username == username && listUser[i].password == password && 
-                listUser[i].status == "Đang hoạt động") {
+                if (listUser[i].username == username && listUser[i].password == password &&
+                    listUser[i].status == "Đang hoạt động") {
                     localStorage.setItem("flag", username);
                     result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                         <div class="toast-header">
@@ -175,14 +192,14 @@
                                 </div>  
                                 </div>`;
 
-                setTimeout(function () {
-                    window.location = "index.html";
-                }, 2000);
-                return;
-            }
+                    setTimeout(function () {
+                        window.location = "index.html";
+                    }, 2000);
+                    return;
+                }
                 else if (listUser[i].username == username && listUser[i].password == password &&
-                listUser[i].status == "Bị hạn chế") {
-                    console.log("2",listUser[i].status);
+                    listUser[i].status == "Bị hạn chế") {
+                    console.log("2", listUser[i].status);
                     result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                 <div class="toast-header">
                     <strong class="mr-auto" style="font-size:18px">Tài khoản hiện đang bị khoá</strong>
@@ -195,12 +212,12 @@
                         window.location = "login.html";
                     }, 2000);
                     return;
-            }
+                }
 
-            else if (listUser[i].username == username && listUser[i].password!=password&& 
-                listUser[i].status == "Đang hoạt động") {
-                console.log("3",listUser[i].status);
-                result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+                else if (listUser[i].username == username && listUser[i].password != password &&
+                    listUser[i].status == "Đang hoạt động") {
+                    console.log("3", listUser[i].status);
+                    result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                     <div class="toast-header">
                         <strong class="mr-auto">Xin thử lại</strong>
                         </div>
@@ -208,26 +225,26 @@
                 Mật khẩu không đúng
                 </div>
                 </div>`;
-                setTimeout(function () {
-                    window.location = "login.html";
-                }, 2000);
-                return;
-            }
-            // else if (listUser[i].username != username){
-            //     console.log("4",listUser[i].status);
-            //     result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
-            //         <div class="toast-header">
-            //             <strong class="mr-auto">Xin thử lại</strong>
-            //             </div>
-            //             <div class="toast-body">
-            //     Tên người dùng chưa đăng ký tài khoản
-            //     </div>
-            //     </div>`;
-            //     setTimeout(function () {
-            //         window.location = "login.html";
-            //     }, 2000);
-            //     return;
-            // }
+                    setTimeout(function () {
+                        window.location = "login.html";
+                    }, 2000);
+                    return;
+                }
+                // else if (listUser[i].username != username){
+                //     console.log("4",listUser[i].status);
+                //     result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+                //         <div class="toast-header">
+                //             <strong class="mr-auto">Xin thử lại</strong>
+                //             </div>
+                //             <div class="toast-body">
+                //     Tên người dùng chưa đăng ký tài khoản
+                //     </div>
+                //     </div>`;
+                //     setTimeout(function () {
+                //         window.location = "login.html";
+                //     }, 2000);
+                //     return;
+                // }
             }
 
         }

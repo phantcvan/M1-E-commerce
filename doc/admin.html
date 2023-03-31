@@ -53,8 +53,8 @@
             class="app-menu__label">Bảng điều khiển</span></a></li>
       <li><a class="app-menu__item " href="data-user.html"><i class='app-menu__icon bx bx-id-card'></i> <span
             class="app-menu__label">Quản lý khách hàng</span></a></li>
-      <li><a class="app-menu__item" href="data-product.html"><i
-            class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
+      <li><a class="app-menu__item" href="data-product.html"><i class='app-menu__icon bx bx-purchase-tag-alt'></i><span
+            class="app-menu__label">Quản lý sản phẩm</span></a>
       </li>
       <li><a class="app-menu__item" href="data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
@@ -80,8 +80,7 @@
             <div class="widget-small primary coloured-icon"><i class='icon bx bxs-user-account fa-3x'></i>
               <div class="info">
                 <h4>Tổng khách hàng</h4>
-                <p><b><span id="userQuantity"></span> khách hàng</b></p>
-                <p class="info-tong">Tổng số khách hàng được quản lý.</p>
+                <p class="info-tong"><b><span id="userQuantity"></span> khách hàng</b></p>
               </div>
             </div>
           </div>
@@ -90,8 +89,7 @@
             <div class="widget-small info coloured-icon"><i class='icon bx bxs-data fa-3x'></i>
               <div class="info">
                 <h4>Tổng sản phẩm</h4>
-                <p><b><span id="productQuantity"></span> sản phẩm</b></p>
-                <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
+                <p class="info-tong"><b><span id="productQuantity"></span> sản phẩm</b></p>
               </div>
             </div>
           </div>
@@ -100,8 +98,7 @@
             <div class="widget-small warning coloured-icon"><i class='icon bx bxs-shopping-bags fa-3x'></i>
               <div class="info">
                 <h4>Tổng đơn hàng</h4>
-                <p><b><span id="orderQuantity"></span> đơn hàng</b></p>
-                <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng.</p>
+                <p class="info-tong"><b><span id="orderQuantity"></span> đơn hàng</b></p>
               </div>
             </div>
           </div>
@@ -110,59 +107,24 @@
             <div class="widget-small danger coloured-icon"><i class='icon bx bxs-error-alt fa-3x'></i>
               <div class="info">
                 <h4>Sắp hết hàng</h4>
-                <p><b>4 sản phẩm</b></p>
-                <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
+                <p class="info-tong"><b>4 sản phẩm</b></p>
               </div>
             </div>
           </div>
           <!-- col-12 -->
           <div class="col-md-12">
             <div class="tile">
-              <h3 class="tile-title">Tình trạng đơn hàng trong tháng</h3>
+              <h3 class="tile-title">Tình trạng đơn hàng mới</h3>
               <div>
-                <table class="table table-bordered">
-                  <thead>
+                <table id="tableInfo" class="table table-bordered">
+                  <!-- <thead>
                     <tr>
-                      <th>ID đơn hàng</th>
+                      <th>TT</th>
                       <th>Tên khách hàng</th>
                       <th>Tổng tiền</th>
                       <th>Trạng thái</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>AL3947</td>
-                      <td>Phạm Thị Ngọc</td>
-                      <td>
-                        19.770.000 đ
-                      </td>
-                      <td><span class="badge bg-info">Chờ xử lý</span></td>
-                    </tr>
-                    <tr>
-                      <td>ER3835</td>
-                      <td>Nguyễn Thị Mỹ Yến</td>
-                      <td>
-                        16.770.000 đ
-                      </td>
-                      <td><span class="badge bg-warning">Đang vận chuyển</span></td>
-                    </tr>
-                    <tr>
-                      <td>MD0837</td>
-                      <td>Triệu Thanh Phú</td>
-                      <td>
-                        9.400.000 đ
-                      </td>
-                      <td><span class="badge bg-success">Đã hoàn thành</span></td>
-                    </tr>
-                    <tr>
-                      <td>MT9835</td>
-                      <td>Đặng Hoàng Phúc </td>
-                      <td>
-                        40.650.000 đ
-                      </td>
-                      <td><span class="badge bg-danger">Đã hủy </span></td>
-                    </tr>
-                  </tbody>
+                  </thead> -->
                 </table>
               </div>
               <!-- / div trống-->
@@ -199,7 +161,7 @@
             <div class="tile">
               <h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
               <div>
-                <img src="./images/chart2.png"  width="100%" alt="">
+                <img src="./images/chart2.png" width="100%" alt="">
               </div>
             </div>
           </div>
@@ -229,7 +191,7 @@
   <script type="text/javascript" src="js/plugins/chart.js"></script> -->
 
 
-  <script type="text/javascript">
+  <script>
     //Thời Gian
     function time() {
       var today = new Date();
@@ -247,10 +209,8 @@
       var yyyy = today.getFullYear();
       var h = today.getHours();
       var m = today.getMinutes();
-      // var s = today.getSeconds();
       m = checkTime(m);
-      // s = checkTime(s);
-      nowTime = h + " giờ " + m + " phút " ;
+      nowTime = h + " giờ " + m + " phút ";
       if (dd < 10) {
         dd = '0' + dd
       }
@@ -271,9 +231,9 @@
       }
     }
 
-    let listUser = JSON.parse(localStorage.getItem("listUser"));
     
-    function newUser(){
+    function newUser() {
+      // let listUser = JSON.parse(localStorage.getItem("listUser"));
       if (listUser == null) {
         listUser = [];
       }
@@ -284,15 +244,13 @@
         <th style="text-align:center">Số điện thoại</th>
         </tr>
         `;
-        let a=1;
-        let b=listUser.length-1;
-        let c=listUser.length-5;
-        if (c<0){c=0}
-        console.log(c);
+      let a = 1;
+      let b = listUser.length - 1;
+      let c = listUser.length - 5;
+      if (c < 0) { c = 0 }
 
-        for (let i = b; i >= c; i--) {
-          console.log(listUser[i].username);
-          newUser += `
+      for (let i = b; i >= c; i--) {
+        newUser += `
                         <tr>
                             <td style="text-align:center"> ${a++} </td>
                             <td style="text-align: left"> ${listUser[i].username} </td>
@@ -303,7 +261,27 @@
     }
     newUser();
 
-</script>
+    // In đơn hàng mới
+    // let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+    let table = `<tr>
+<th>TT</th>
+<th>Tên khách hàng</th>
+<th>Tổng tiền</th>
+<th>Trạng thái</th>
+</tr>`;
+    let a = renderOrder.length
+    a = a > 4 ? 4 : a;
+    for (let i = (renderOrder.length-1); i >= renderOrder.length-a; i--) {
+      table += `<tr>
+	<td>${ renderOrder.length-i}</td>
+	<td>${renderOrder[i].username}</td>
+	<td>${renderOrder[i].price.toLocaleString('en-US')}</td>
+	<td>${renderOrder[i].status}</td>
+	</tr>`
+  document.getElementById("tableInfo").innerHTML = table;
+    }
+
+  </script>
 </body>
 
 </html>

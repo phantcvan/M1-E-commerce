@@ -355,8 +355,8 @@ MODAL
       return result = firstChar + randomString;
     }
 
-    let listProduct = JSON.parse(localStorage.getItem("listProduct"));
     function saveProduct() {
+      let listProduct = JSON.parse(localStorage.getItem("listProduct"));
       makeCode();
       let code = result;
       console.log(code);
@@ -367,7 +367,6 @@ MODAL
       let price = Number(document.getElementById("price").value);
       let describe = document.getElementById("describe").value;
       let localStorageImage = localStorage.getItem("myImage");
-      console.log(localStorageImage);
       if (listProduct == null) {
         listProduct = [];
       }
