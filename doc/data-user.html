@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Main CSS-->
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="icon" href="../images/logo.png">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <!-- or -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -254,14 +256,6 @@
         listUser[id].note = newNote;
         let newStatus = document.getElementById("statusSelect").value;
         listUser[id].status = newStatus;
-        console.log(listUser[id].status);
-        // for (let i = 0; i < listUser.length; i++) {
-        //   if (listUser[i].status=="Đang hoạt động"){
-        //     console.log(listUser[i].status);
-        //     listUser[i].status.style.color="green";
-        //   }
-
-        // }
 
         localStorage.setItem("listUser", JSON.stringify(listUser));
         renderUser();
@@ -341,7 +335,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <!-- Load Bootstrap JS last -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="./js/main.js"></script>
 
 
 </body>

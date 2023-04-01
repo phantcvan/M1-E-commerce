@@ -10,9 +10,9 @@
 
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <link rel="icon" href="./images/logo.png">
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="./shop/style.css">
+    <link rel="stylesheet" href="./css/styleIndex.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
@@ -40,35 +40,57 @@
             <a href="#review">đánh giá</a>
             <a href="#contact">liên hệ</a>
         </nav>
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+            <div class="icons">
+                <i class="fas fa-search" id="search-btn"></i>
+            </div>
+            <div class="icons">
+                <a href="./login.html" id="login"> <i class="fas fa-user"></i></a>
+            </div>
 
-        <div class="icons">
-            <i class="fas fa-search" id="search-btn"></i>
-            <a href="./login.html" id="login"> <i class="fas fa-user"></i></a>
-        </div>
-
-        <p id="logout"></p>
-        <div class="cart" id="cart">
-            <button style="border: none;background-color: white;" class="btn btn-primary" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
-                onclick="closeModal()">
-                <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(61,33,24)"
-                    onclick="renderProductBuy()"></i>
-                    <span id="totalProductCart">0</span>
-
-            </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header" style="margin: 1vh 5px;">
-                    <h1 class="offcanvas-title" id="offcanvasRightLabel"
-                        style="font-size: 20px;color:rgb(61,33,24);text-align: center;width:85%">
-                        <b>GIỎ HÀNG</b>
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <form action="" class="search-bar-container" style="display: flex;flex-direction: column;">
+                <div class="input-label-container" style="display: inline-flex;align-items: center;width:100%">
+                    <input type="search" id="search-bar" placeholder="Tìm kiếm..." style="margin-right: 10px;">
+                    <label for="search-bar" class="fas fa-search" onclick="searchProduct()"></label>
                 </div>
-                <div id="offcanvas-body">
-                    <p id="request" style="margin: 10px; font-size: 15px; font-weight:550;color:rgb(236, 0, 139);"></p>
-                    <div id="noti" style="margin: 10px; font-size: 13px;color:rgb(61,33,24);">
-                        <!-- <div class="row">
+                <p id="searchResult" style="color: #fff;font-size: 1.7rem;display: block;margin:10px 0px 0px"></p>
+            </form>
+            <div id="userInfo"></div>
+
+            <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
+        aria-expanded="false">Dropdown</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="border:none;padding: 0px 5px;margin:5px">
+            <li  style="border:none;padding: 0px 5px"><p id="hello"></p></li>
+            <li  style="border:none;padding: 0px 5px">
+                <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="#"><p>Chi tiết đơn hàng</p></a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li style="border:none;padding: 0px 5px"><p id="logout"></p></li>
+          </ul> -->
+
+
+            <div class="cart" id="cart">
+                <button style="border: none;background-color: white;" class="btn btn-primary" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+                    onclick="closeModal()">
+                    <i class="fa-solid fa-cart-shopping cartIcon" style="font-size: 25px;color:rgb(61,33,24)"
+                        onclick="renderProductBuy()"></i>
+                    <span id="totalProductCart" style="top:5px">0</span>
+
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                    aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header" style="margin: 1vh 5px;">
+                        <h1 class="offcanvas-title" id="offcanvasRightLabel"
+                            style="font-size: 20px;color:rgb(61,33,24);text-align: center;width:85%">
+                            <b>GIỎ HÀNG</b>
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div id="offcanvas-body">
+                        <p id="request" style="margin: 10px; font-size: 15px; font-weight:550;color:rgb(236, 0, 139);">
+                        </p>
+                        <div id="noti" style="margin: 10px; font-size: 13px;color:rgb(61,33,24);">
+                            <!-- <div class="row">
                             <div class="form-group col-6">
                                 <label class="control-label">Tên người nhận:</label>
                                 <input style="padding:5px" class="form-control" type="text" required id="payClient">
@@ -84,9 +106,9 @@
                                 <input style="padding:5px"  class="form-control" type="text" required id="payAddress">
                             </div>
                         </div> -->
-                    </div>
-                    <table id="productBuy">
-                        <!-- <tr>
+                        </div>
+                        <table id="productBuy">
+                            <!-- <tr>
                                 <td rowspan="3">Ảnh </td>
                                 <td>Tên sản phẩm</td>
                             </tr>
@@ -98,13 +120,14 @@
                                 <td style="font-size: 15px;margin-left:10px">Số lượng</td>
                                 <td style="font-size: 15px;margin-left:10px"><button>+</button></td>
                             </tr> -->
-                    </table>
+                        </table>
 
-                    <div style="margin:10px; display: flex;justify-content: space-around;align-items: center;">
-                        <div id="totalAmount">
+                        <div style="margin:10px; display: flex;justify-content: space-around;align-items: center;">
+                            <div id="totalAmount">
 
-                        </div>
-                        <div id="totalButton">
+                            </div>
+                            <div id="totalButton">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,11 +135,6 @@
         </div>
 
 
-
-        <form action="" class="search-bar-container">
-            <input type="search" id="search-bar" placeholder="Tìm kiếm...">
-            <label for="search-bar" class="fas fa-search"></label>
-        </form>
 
     </header>
 
@@ -146,7 +164,7 @@
         <div class="row">
 
             <div class="image">
-                <img src="./shop/images/slogan.png" alt="">
+                <img src="./images/slogan.png" alt="">
             </div>
             <div class="content_about">
                 <span>MIA Bridal Accessories đã gắn bó và đồng hành với nhiều
@@ -203,58 +221,64 @@
     </div>
     <!-- END MODAL -->
 
-<!-- REVIEW -->
-<section class="review" id="review">
+    <!-- REVIEW -->
+    <section class="review" id="review">
 
-    <h1 class="heading"><span>ĐÁNH GIÁ</span> </h1>
+        <h1 class="heading"><span>ĐÁNH GIÁ</span> </h1>
 
-    <div class="swiper-container review-slider" >
-<div class="container-fluid">
-<div class="row" style="display: flex; justify-content: space-between;">
-            <!-- <div class="swiper-slide"> -->
-                <div class="box col-3" style="margin:0px 20px">
-                    <img src="./images/review1.jpg" alt="">
-                    <h3>Nguyễn Văn A</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
+        <div class="swiper-container review-slider">
+            <div class="container-fluid">
+                <div class="row" style="display: flex; justify-content: space-evenly;">
+                    <!-- <div class="swiper-slide"> -->
+                    <div class="box col-10 col-md-5 col-lg-3" style="margin:0px 20px">
+                        <img src="./images/review1.jpg" alt="">
+                        <h3>Nguyễn Văn A</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
+                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
+                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
                     </div>
-                </div>
-            <!-- </div> -->
-            <!-- <div class="swiper-slide"> -->
-                <div class="box col-3" style="margin:0px 20px">
-                    <img src="./images/review2.jpg" alt="">
-                    <h3>Trần Văn B</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <!-- </div> -->
+                    <!-- <div class="swiper-slide"> -->
+                    <div class="box col-10 col-md-5 col-lg-3" style="margin:0px 20px;">
+                        <img src="./images/review2.jpg" alt="">
+                        <h3>Trần Văn B</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
+                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
+                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
 
+                        </div>
                     </div>
-                </div>
-            <!-- </div>
+                    <!-- </div>
             <div class="swiper-slide"> -->
-                <div class="box col-3" style="margin:0px 20px">
-                    <img src="./images/review3.jpg" alt="">
-                    <h3>Phạm Thị C</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias consectetur ducimus beatae, reprehenderit exercitationem!</p>
-                    <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
+                    <div class="box col-10 col-md-5 col-lg-3" style="margin:0px 20px">
+                        <img src="./images/review3.jpg" alt="">
+                        <h3>Phạm Thị C</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa adipisci quisquam sunt nesciunt
+                            fugiat odit minus illum asperiores dolorum enim sint quod ipsam distinctio molestias
+                            consectetur ducimus beatae, reprehenderit exercitationem!</p>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
                     </div>
-                </div>
-            <!-- </div> -->
-            <!-- <div class="swiper-slide">
+                    <!-- </div> -->
+                    <!-- <div class="swiper-slide">
                 <div class="box col-3">
                     <img src="" alt="">
                     <h3>john deo</h3>
@@ -269,48 +293,73 @@
                 </div>
             </div> -->
 
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
 
-</section>
+    </section>
 
-<!-- END REVIEW -->
+    <!-- END REVIEW -->
     <!-- footer section  -->
 
     <section class="footer" id="contact">
         <div class="box-container">
-          <div class="box col-5 col-lg-6">
-            <h3>Công ty cổ phần MIA</h3>
-            <p>Tel/Zalo: 0123123123</p>
-            <p>Địa chỉ liên hệ: 92 Tràng Thi, Hoàn Kiếm, Hà Nội</p>
-            <a href="https://www.facebook.com/phantcvan/">Facebook</a>
-          </div>
-          <div class="box col-3 col-lg-3">
-            <h3><a style="  font-size: 2.5rem;padding: .7rem 0;color: #fff;text-decoration: none;" href="index.html">
-                Trang chủ</a></h3>
-            <a href="#aboutUs">Về chúng tôi</a>
-            <a href="#product">Sản phẩm</a>
-            <a href="#review">Đánh giá</a>
-            <a href="#contact">Liên hệ</a>
-          </div>
-          <div class="box col-3 col-lg-2">
-            <h3>Hỗ trợ</h3>
-            <a href="#">Hỏi đáp</a>
-            <a href="#">Chính sách KHTT</a>
-            <a href="#">Chính sách vận chuyển</a>
-            <a href="#">Kiểm tra đơn hàng</a>
+            <div class="box col-5 col-lg-6">
+                <h3>Công ty cổ phần MIA</h3>
+                <p>Tel/Zalo: 0123123123</p>
+                <p>Địa chỉ liên hệ: 92 Tràng Thi, Hoàn Kiếm, Hà Nội</p>
+                <div class="footer-block">
+                    <a class="social" href="https://twitter.com/" data-toggle="tooltip" target="_blank" title="Twitter">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+
+                    <a class="social" href="https://rss.com/" data-toggle="tooltip" target="_blank" title="RSS">
+                        <i class="fa-solid fa-rss"></i>
+                    </a>
+                    <a class="social" href="https://www.plus.google.com/discover" data-toggle="tooltip" target="_blank"
+                        title="Google Plus">
+                        <i class="fa-brands fa-google-plus-g"></i>
+                    </a>
+                    <a class="social" href="https://www.facebook.com/" data-toggle="tooltip" target="_blank"
+                        title="Facebook">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a class="social" href="https://www.youtube.com/" data-toggle="tooltip" target="_blank"
+                        title="Youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a class="social" href="https://www.instagram.com/" data-toggle="tooltip" target="_blank"
+                        title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="box col-3 col-lg-3">
+                <h3><a style="  font-size: 2.5rem;padding: .7rem 0;color: #fff;text-decoration: none;"
+                        href="index.html">
+                        Trang chủ</a></h3>
+                <a class="footerInfo" href="#aboutUs">Về chúng tôi</a>
+                <a class="footerInfo" href="#product">Sản phẩm</a>
+                <a class="footerInfo" href="#review">Đánh giá</a>
+                <a class="footerInfo" href="#contact">Liên hệ</a>
+            </div>
+            <div class="box col-3 col-lg-2">
+                <h3>Hỗ trợ</h3>
+                <a class="footerInfo" href="#">Hỏi đáp</a>
+                <a class="footerInfo" href="#">Chính sách KHTT</a>
+                <a class="footerInfo" href="#">Chính sách vận chuyển</a>
+                <a class="footerInfo" href="#">Kiểm tra đơn hàng</a>
 
 
-          </div>
+            </div>
         </div>
-  
+
         <h1 class="credit">
-          <span style="color:rgb(236, 0, 139)"> MIA Bridal Accessories </span> | All Rights Reserved!
+            <span style="color:rgb(236, 0, 139)"> MIA Bridal Accessories </span> | All Rights Reserved!
         </h1>
-      </section>
+    </section>
     <script>
 
     </script>
@@ -328,7 +377,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <!-- custom js file link  -->
-    <script src="./shop/script.js"></script>
+    <script src="./js/scriptIndex.js"></script>
 
 </body>
 

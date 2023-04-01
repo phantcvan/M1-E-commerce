@@ -7,7 +7,7 @@
 </head>
 
 <body>
-
+<a href="./images/default.jpg"></a>
     <!-- Flexbox container for aligning the toasts -->
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
         style="min-height: 200px;">
@@ -43,6 +43,27 @@
 
         // Show the toast
         myToast.show();
+
+
+
+        function renderProduct() {
+      let listProduct = JSON.parse(localStorage.getItem("listProduct"));
+      let productRender = `<tr style="text-align:center">
+                          <th style="text-align:center;width:3%">TT</th>
+                          <th style="text-align:center;width:6%">Tình trạng</th>
+                        </tr>`;
+
+      for (let i = 0; i < listProduct.length; i++) {
+        productRender += `
+      <tr>
+        <td style="text-align:center">${i + 1}</td>
+        <td id="statusCss${i}">${listProduct[i].status}</td>
+      </tr>
+    `;
+      }
+      document.getElementById("productRender").innerHTML = productRender;
+    }
+
     </script>
 
 </body>

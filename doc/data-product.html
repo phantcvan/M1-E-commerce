@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <!-- or -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="icon" href="../images/logo.png">
+
 
   <!-- Font-icon css-->
   <link rel="stylesheet" type="text/css"
@@ -21,6 +23,18 @@
 
 </head>
 <style>
+  .cell-green {
+    background-color: green;
+  }
+
+  .cell-yellow {
+    background-color: yellow;
+  }
+
+  .cell-red {
+    background-color: red;
+  }
+
   .imgProduct {
     width: 150px;
   }
@@ -113,8 +127,8 @@
               <div class="col-sm-12 col-md-12">
                 <div id="sampleTable_filter" class="dataTables_filter">
                   <div class="d-flex">
-                    <input class="form-control me-2" type="search" id="searchProduct"
-                      placeholder="Tìm kiếm tên sản phẩm" aria-label="Search">
+                    <input class="form-control me-2" type="search" id="searchProduct" placeholder="Nhập tên sản phẩm..."
+                      aria-label="Search">
                     <button style="border: 1px solid rgb(218,218,218); padding: 11px 10px" class="btn" type="submit"
                       onclick="searchButton()"> Tìm kiếm </button>
                   </div>
@@ -129,7 +143,7 @@
               <div class="col-12">
                 <div class="tile">
                   <div class="tile-body">
-                    <table class="table table-hover table-bordered" id="productList">
+                    <table class="table table-hover table-bordered" id="productRender">
                       <!-- <tr>
                   <th>TT</th>
                   <th>Mã sản phẩm</th>
@@ -195,11 +209,11 @@
 
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <!-- <div class="form-group col-md-6">
               <label class="control-label">Ảnh minh hoạ</label>
               <input type="file" id="imageInput" name="ImageUpload">
               <img width="200" alt="preview" id="preview">
-            </div>
+            </div> -->
           </div>
           <BR>
           <BR>
@@ -221,7 +235,7 @@ MODAL
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <!-- Load Bootstrap JS last -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
+  <!-- <script src="js/main.js"></script> -->
 
   <script type="text/javascript">
     // $('#sampleTable').DataTable();
@@ -268,23 +282,73 @@ MODAL
   </script>
   <script>
 
+    (function () {
+      "use strict";
 
+      var treeviewMenu = $('.app-menu');
+
+      // Toggle Sidebar
+      $('[data-toggle="sidebar"]').click(function (event) {
+        event.preventDefault();
+        $('.app').toggleClass('sidenav-toggled');
+      });
+
+      // Activate sidebar treeview toggle
+      $("[data-toggle='treeview']").click(function (event) {
+        event.preventDefault();
+        if (!$(this).parent().hasClass('is-expanded')) {
+          treeviewMenu.find("[data-toggle='treeview']").parent().removeClass('is-expanded');
+        }
+        $(this).parent().toggleClass('is-expanded');
+      });
+
+      // Set initial active toggle
+      $("[data-toggle='treeview.'].is-expanded").parent().toggleClass('is-expanded');
+
+      //Activate bootstrip tooltips
+      $("[data-toggle='tooltip']").tooltip();
+
+    })();
+
+
+    // Hiển thị danh sách sản phẩm
     function renderProduct() {
       let listProduct = JSON.parse(localStorage.getItem("listProduct"));
+      // Hiển thị tình trạng sản phẩm
+      for (let i = 0; i < listProduct.length; i++) {
+        if (listProduct[i].quantity > 0 && listProduct[i].quantity < 5) {
+          listProduct[i].status = "Sắp hết";
+        }
+        if (listProduct[i].status == 0) {
+          listProduct[i].status = "Hết hàng";
+        }
+      }
+      localStorage.setItem("listProduct", JSON.stringify(listProduct));
 
-      let productList = `<tr style="text-align:center">
+      let productRender = `<tr style="text-align:center">
                           <th style="text-align:center;width:3%">TT</th>
                           <th style="text-align:center;width:8%">Mã sản phẩm</th>
                           <th style="text-align:center;width:6%">Danh mục</th>
                           <th style="text-align:center;width:10%">Tên sản phẩm</th>
                           <th style="text-align:center;width:8%">Ảnh</th>
                           <th style="text-align:center;width:5%">Số lượng</th>
-                          <th style="text-align:center;width:6%">Tình trạng</th>
+                          <th style="text-align:center;width:10%">Tình trạng</th>
                           <th style="text-align:center;width:8%">Giá tiền</th>
                           <th style="text-align:center;width:15%" colspan="2">Chức năng</th>
                         </tr>`;
+
+
       for (let i = 0; i < listProduct.length; i++) {
-        productList += `
+        let status = listProduct[i].status;
+        let statusStyle;
+        if (status === "Còn hàng") {
+          statusStyle = "color: white; background-color: green;padding:5px";
+        } else if (status === "Sắp hết") {
+          statusStyle = "color: black; background-color: yellow;padding:5px";
+        } else {
+          statusStyle = "color: white; background-color: red;padding:5px";
+        }
+        productRender += `
       <tr>
         <td style="text-align:center">${i + 1}</td>
         <td>${listProduct[i].code}</td>
@@ -292,7 +356,7 @@ MODAL
         <td style="text-align: left">${listProduct[i].name}</td>
         <td><img class="imgProduct" src="${listProduct[i].image}" /></td>
         <td>${listProduct[i].quantity}</td>
-        <td>${listProduct[i].status}</td>
+        <td><span style="${statusStyle}"> ${listProduct[i].status}</span></td>
         <td>${(listProduct[i].price).toLocaleString('en-US')}</td>
         <td class="btn btn-warning" style="border:none; background-color:rgb(255, 212, 59);margin-right:5px" type="button" title="Sửa" id="show-emp"
           data-toggle="modal" data-target="#ModalUP"> 
@@ -301,12 +365,17 @@ MODAL
           <i class="fas fa-trash-alt"></i> Xoá </td>
       </tr>
     `;
+
       }
+      // css cho tình trạng sản phẩm
+
+
       // productList += `</table>`;
-      document.getElementById("productList").innerHTML = productList;
+      document.getElementById("productRender").innerHTML = productRender;
+
+
     }
-    renderProduct();
-    // Tìm kiếm người dùng
+    // Tìm kiếm sản phẩm
     function searchButton() {
       let searchValue = document.getElementById("searchProduct").value;
       if (searchValue == "") {
@@ -349,11 +418,11 @@ MODAL
           foundProduct = true;
         }
       }
-      
+
       if (!foundProduct) {
         document.getElementById("searchResult").innerHTML =
-        "<tr><td colspan='10'>Không có kết quả phù hợp</td></tr>";
-      } 
+          "<tr><td colspan='10'>Không có kết quả phù hợp</td></tr>";
+      }
       else {
         document.getElementById("searchResult").innerHTML = total;
 
@@ -365,30 +434,30 @@ MODAL
     // Chỉnh sửa sản phẩm
     function productInfo(id) {
       // hiển thị danh mục sản phẩm
-      let productList=JSON.parse(localStorage.getItem("productList"));
-      let listProduct=JSON.parse(localStorage.getItem("listProduct"));
-      console.log("List Danh Mục -->",productList);
-      let listNew =`<option>-- Chọn danh mục --</option> `;
-      for (i=0;i<productList.length;i++){
-        listNew+=`<option> ${productList[i]} </option> `
+      let productList = JSON.parse(localStorage.getItem("productList"));
+      let listProduct = JSON.parse(localStorage.getItem("listProduct"));
+      console.log("List Danh Mục -->", productList);
+      let listNew = `<option>-- Chọn danh mục --</option> `;
+      for (i = 0; i < productList.length; i++) {
+        listNew += `<option> ${productList[i]} </option> `
       }
-      document.getElementById("list").innerHTML=listNew;
+      document.getElementById("list").innerHTML = listNew;
 
-// Sửa ảnh
-    let imageInput = document.getElementById('imageInput');
-    let myImage = document.getElementById('preview');
-    imageInput.onchange = function (event) {
-      let file = event.target.files[0];
-      let reader = new FileReader();
-      reader.onload = function (event) {
-        let dataUrl = event.target.result;
-        myImage.src = dataUrl;
-        localStorage.setItem('myImage', dataUrl);
-      };
-      reader.readAsDataURL(file);
-    };
+      // Sửa ảnh
+      // let imageInput = document.getElementById('imageInput');
+      // let myImage = document.getElementById('preview');
+      // imageInput.onchange = function (event) {
+      //   let file = event.target.files[0];
+      //   let reader = new FileReader();
+      //   reader.onload = function (event) {
+      //     let dataUrl = event.target.result;
+      //     myImage.src = dataUrl;
+      //     localStorage.setItem('myImage', dataUrl);
+      //   };
+      //   reader.readAsDataURL(file);
+      // };
 
-    listProduct[id].image = localStorage.getItem("myImage");
+      // listProduct[id].image = localStorage.getItem("myImage");
 
       document.getElementById("name").value = listProduct[id].name;
       document.getElementById("quantity").value = listProduct[id].quantity;
@@ -417,8 +486,10 @@ MODAL
 
 
 
-
+    // Xoá sản phẩm
     function deleteProduct(id) {
+      let listProduct = JSON.parse(localStorage.getItem("listProduct"));
+
       // console.log(listProduct[id]);
       // let alertDeleteProduct = document.getElementById("toast")
       let accept = confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')
@@ -429,9 +500,12 @@ MODAL
       renderProduct();
     }
 
-    function closeModal(){
-    $('#modal').modal('hide')
-}
+    renderProduct();
+
+
+    function closeModal() {
+      $('#modal').modal('hide')
+    }
 
   </script>
 </body>

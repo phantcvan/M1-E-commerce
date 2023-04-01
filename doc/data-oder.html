@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <!-- or -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="icon" href="../images/logo.png">
+
 
   <!-- Font-icon css-->
   <link rel="stylesheet" type="text/css"
@@ -67,6 +69,23 @@
       </ul>
       <div id="clock"></div>
     </div>
+    <!-- Tìm kiếm đơn hàng-->
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <div id="sampleTable_filter" class="dataTables_filter">
+          <div class="d-flex">
+            <input class="form-control me-2" type="search" id="searchOrder"
+              placeholder="Nhập tên khách hàng hoặc tình trạng đơn hàng..." aria-label="Search">
+            <button style="border: 1px solid rgb(218,218,218); padding: 11px 10px" class="btn" type="submit"
+              onclick="searchButton()"> Tìm kiếm </button>
+          </div>
+          <table id="searchResult">
+
+          </table><br>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-12">
         <div class="tile">
@@ -141,6 +160,7 @@
       }
     }
 
+    // Hiển thị list đơn hàng
     function renderListPay() {
       let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
       if (renderOrder == null) {
@@ -190,7 +210,7 @@
       for (let i = (orderManage.length - 1); i >= 0; i--) {
         // `statusSelect${i}`.value
         // console.log("TRẠNG THÁI",`statusSelect${i}`.value);
-      
+
         let status = renderOrder[i] ? renderOrder[i].status : "Đang xử lý"; // Lấy giá trị status từ renderOrder
         ordered += `<tr>
                     <td style="text-align:center">${orderManage.length - i}</td>
@@ -211,42 +231,97 @@
                 </tr>`;
       }
       document.getElementById("renderOrder").innerHTML = ordered;
-      let result ="";
+      let result = "";
       for (let i = 0; i < orderManage.length; i++) {
-    let statusSelect = document.getElementById(`statusSelect${i}`);
-    statusSelect.value = renderOrder[i] ? renderOrder[i].status : "0";
-    statusSelect.addEventListener("change", () => {
-      let statusNew = statusSelect.value;
-      orderManage[i].status = statusNew;
-      localStorage.setItem("renderOrder", JSON.stringify(orderManage));
-    });
-  }
-      
-    }
-  //   function renderStatus(){
-  //     let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
-  //     for (let i = (renderOrder.length - 1); i >= 0; i--) {
-  //       let statusNew = document.getElementById(`statusSelect${i}`).value;
+        let statusSelect = document.getElementById(`statusSelect${i}`);
+        statusSelect.value = renderOrder[i] ? renderOrder[i].status : "Đang xử lý";
+        statusSelect.addEventListener("change", () => {
+          let statusNew = statusSelect.value;
+          orderManage[i].status = statusNew;
+          localStorage.setItem("renderOrder", JSON.stringify(orderManage));
+        });
+      }
 
-  //       if (statusNew==0){
-  //           result="Đang xử lý";
-  //         } else if (statusNew==1){
-  //           result="Đang vận chuyển";
-  //         } else if (statusNew==2){
-  //           result="Đã hoàn thành";
-  //         }          
-  //         else if (statusNew==3){
-  //           result="Bị huỷ";
-  //         }
-       
-          
-  //   }
-  // }
+    }
     renderListPay()
 
+    // Tìm kiếm đơn hàng
+    function searchButton() {
+      let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+      let searchValue = document.getElementById("searchOrder").value;
+      if (searchValue == "") {
+        document.getElementById("searchResult").innerHTML = `
+        <tr><td colspan='10'>Hãy nhập thông tin vào ô tìm kiếm</td></tr>
+        `;
+        return;
+      }
+
+      let foundOrder = false;
+      let total = `<tr>
+                    <th style="text-align:center;width:3%">TT</th>
+                    <th style="text-align:center;width:10%">ID đơn hàng</th>
+                    <th style="text-align:center;width:10%">Tên khách hàng</th>
+                    <th style="text-align:center;width:23%">Đơn hàng</th>
+                    <th style="text-align:center;width:8%">Tổng tiền</th>
+                    <th style="text-align:center;width:15%">Địa chỉ</th>
+                    <th style="text-align:center;width:12%">Số ĐT nhận hàng</th>
+                    <th style="text-align:center;width:19%">Tình trạng</th>
+                  </tr>`;
+      for (let i = (renderOrder.length - 1); i >= 0; i--) {
+        if (renderOrder[i].username.toLowerCase().includes(searchValue.toLowerCase()) ||
+          renderOrder[i].status.toLowerCase().includes(searchValue.toLowerCase()) ||
+          renderOrder[i].orderID.toLowerCase().includes(searchValue.toLowerCase())) {
+            let status = renderOrder[i] ? renderOrder[i].status : "Đang xử lý"; // Lấy giá trị status từ renderOrder
+
+          total += `
+          <tr>
+                    <td style="text-align:center">${renderOrder.length - i}</td>
+                    <td>${renderOrder[i].orderID}</td>
+                    <td>${renderOrder[i].username}</td>
+                    <td>${renderOrder[i].name}</td>
+                    <td style="text-align:right">${renderOrder[i].price.toLocaleString('en-US')}</td>
+                    <td>${renderOrder[i].address}</td>
+                    <td>${renderOrder[i].telephone}</td>
+                  <td>
+                    <select class="form-control" id="statusSelect${i}">
+                      <option ${status === "Đang xử lý" ? "selected" : ""} value="Đang xử lý" >Đang xử lý</option>
+                      <option ${status === "Đang vận chuyển" ? "selected" : ""} value="Đang vận chuyển">Đang vận chuyển</option>
+                      <option ${status === "Đã hoàn thành" ? "selected" : ""} value="Đã hoàn thành" >Đã hoàn thành</option>
+                      <option ${status === "Bị huỷ" ? "selected" : ""} value="Bị huỷ" >Bị huỷ</option>
+                    </select>
+                  </td>
+                </tr>`;
+          foundOrder = true;
+        }
+      }
+
+      if (!foundOrder) {
+        document.getElementById("searchResult").innerHTML =
+          "<tr><td colspan='10'>Không có kết quả phù hợp</td></tr>";
+      }
+      else {
+        document.getElementById("searchResult").innerHTML = total;
+        let result = "";
+      for (let i = 0; i < renderOrder.length; i++) {
+        let statusSelect = document.getElementById(`statusSelect${i}`);
+        statusSelect.value = renderOrder[i] ? renderOrder[i].status : "Đang xử lý";
+        statusSelect.addEventListener("change", () => {
+          let statusNew = statusSelect.value;
+          renderOrder[i].status = statusNew;
+          localStorage.setItem("renderOrder", JSON.stringify(renderOrder));
+        });
+      }
 
 
-    
+      }
+
+    }
+
+
+
+
+
+
 
 
 

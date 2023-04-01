@@ -5,25 +5,15 @@
   <title>Đăng ký tài khoản</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> -->
   <link rel="stylesheet" type="text/css" href="css/util.css">
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"> -->
   <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="icon" href="./images/logo.png">
+
 
 
 
@@ -212,6 +202,19 @@
             setTimeout(() => { document.getElementById("toast-body").innerHTML = `` }, 1500)
             return;
           }
+          // Kiểm tra số điện thoại
+          if (telephone.length!=10){
+            document.getElementById("toast-body").innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+                <div class="toast-header"><br>
+                    <strong class="mr-auto" style="font-size:18px">Hãy nhập lại số điện thoại</strong>
+                    <p><br></p>
+                </div> 
+                </div>`;
+            setTimeout(() => { document.getElementById("toast-body").innerHTML = `` }, 2000)
+            return;
+
+          }
+
           // Kiểm tra độ dài password
           function isPasswordValid(password) {
             return password.length >= 6;
@@ -277,11 +280,40 @@
             return;
           }
 
+// lưu ảnh avatar mặc định
+// Đường dẫn đến ảnh mặc định
+let defaultImageURL  = "https://png.pngtree.com/png-vector/20190130/ourlarge/pngtree-q-cute-cute-cartoon-bride-and-groom-wedding-character-design-menglovelycartoonbridegroombridecharacterwedding-png-image_582849.jpg";
+const img = new Image();
+img.src = defaultImageURL;
+img.crossOrigin = "anonymous";
+img.style.display = "none";
+document.body.appendChild(img);
+
+// Khi ảnh mặc định đã được tải xong
+img.onload = function () {
+  // Tạo một canvas để chuyển đổi ảnh thành chuỗi base64
+  const canvas = document.createElement("canvas");
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0);
+  const base64Image = canvas.toDataURL("image/png");
+
+  // Lưu chuỗi base64 của ảnh vào localStorage
+  localStorage.setItem("imageAvatar", base64Image);
+
+  // Xóa thẻ ảnh ẩn
+  document.body.removeChild(img);
+};let imageAvatarLocal = localStorage.getItem("imageAvatar");
+
+
           let infoUser = {
             email: emailInput,
             password: passwordInput,
             username: username,
             telephone: telephone,
+            address:"",
+            avatar:imageAvatarLocal,
             note: "",
             status: "Đang hoạt động",
           }
