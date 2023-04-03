@@ -20,11 +20,11 @@ if (flag != "") {
                 <li  style="border:none;padding: 0px 5px"><p id="hello"></p></li>
                 <li><hr class="dropdown-divider"></li>
                 <li  style="border:none;padding: 0px 5px">
-                    <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="./userInfo2.html">
+                    <a style="color:rgb(61,33,24);font-size:1.5rem;padding:0px;" class="dropdown-item" href="./userInfo2.html">
                     <p>Chỉnh sửa thông tin cá nhân</p></a>
                 </li>
                 <li  style="border:none;padding: 0px 5px">
-                    <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="./orderInfo.html">
+                    <a style="color:rgb(61,33,24);font-size:1.5rem;padding:0px;" class="dropdown-item" href="./orderInfo.html">
                     <p>Chi tiết đơn hàng</p></a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
@@ -123,11 +123,10 @@ function renderList() {
 renderList();
 // Hiển thị sản phẩm
 function renderProduct(id) {
-    // Thêm class "buttonListActive" vào button DANH MỤC được click
-    let clickedButton = document.getElementById(`buttonList${id}`);
 
-    clickedButton.classList.remove('buttonListDis');
-    clickedButton.classList.add('buttonListActive');
+    // Thêm class "buttonListActive" vào button DANH MỤC được click
+    document.getElementById(`buttonList${id}`).classList.remove('buttonListDis');
+    document.getElementById(`buttonList${id}`).classList.add('buttonListActive');
     // Loại bỏ class "buttonListActive" khỏi tất cả các button DANH MỤC CÒN LẠI
     let productList = JSON.parse(localStorage.getItem("productList"));
     let a = productList.length;
@@ -196,7 +195,6 @@ renderProduct()
 function searchProduct(){
     let listProduct = JSON.parse(localStorage.getItem("listProduct"));
     let searchValue = document.getElementById("search-bar").value;
-    console.log(searchValue);
     if (searchValue == "") {
         document.getElementById("searchResult").innerHTML =
         "Hãy nhập thông tin vào ô tìm kiếm";
@@ -512,11 +510,19 @@ function clientPay() {
     // Xoá hiển thị trên giỏ hàng
     document.getElementById("noti").innerHTML = `<span style="color:rgb(56,9,21);font-size: 16px;">Đơn hàng thành công!</span>
         <button style="color:rgb(56,9,21);font-size: 16px;" data-bs-dismiss="offcanvas">`
+        document.getElementById("productBuy").innerHTML = "";
+        sum=0;
+        document.getElementById("totalAmount").style.display="none";
+        document.getElementById("totalButton").style.display="none";
+
+        setTimeout(function () {
+            window.location = "./index.html#product";
+        }, 500);
+
+
+
     renderCount()
 
-    setTimeout(function () {
-        window.location = "./index.html#product";
-    }, 500);
 
     
     // Xoá sp trên Local
@@ -531,18 +537,14 @@ function clientPay() {
     
     // }
     
-    renderProductBuy();
-    renderCount();
 
 
-}
 // Lưu đơn hàng trên local
-function saveOrder(){
+
     let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
     if (renderOrder == null) {
       renderOrder = [];
     }
-    let listPay = JSON.parse(localStorage.getItem("listPay"));
     let grouped = {};
     listPay.forEach(item => {
       let key = `${item.username}_${item.orderID.toString().padStart(3, '0')}`;
@@ -573,11 +575,13 @@ function saveOrder(){
 
     });
     let orderManage = Object.values(grouped);
-    localStorage.setItem("orderManage", JSON.stringify(orderManage));
+    console.log("DS ĐƠN HÀNG",orderManage);
+    localStorage.setItem("renderOrder", JSON.stringify(orderManage));
 
 }
 
-
+renderProductBuy();
+renderCount();
 
 
 

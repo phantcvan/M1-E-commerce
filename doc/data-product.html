@@ -67,6 +67,16 @@
 </style>
 
 <body onload="time()" class="app sidebar-mini rtl">
+      <!-- Navbar-->
+      <header class="app-header">
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+          aria-label="Hide Sidebar" ></a>
+          <ul class="app-nav">
+        <img src="../images/logo.png" alt="" width="40px">
+            </li>
+          </ul>
+      </header>    <!-- Sidebar menu-->
+  
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="./images/admin.png" width="50px"
@@ -187,7 +197,7 @@
             </div> -->
             <div class="form-group col-md-6">
               <label class="control-label">Giá bán</label>
-              <input id="price" class="form-control" type="text">
+              <input id="price" class="form-control" type="number">
             </div>
             <div class="form-group col-md-6">
               <label for="exampleSelect1" class="control-label">Danh mục</label>
@@ -195,6 +205,10 @@
                 <!-- <option>-- Chọn danh mục --</option> -->
 
               </select>
+            </div>
+            <div class="form-group col-md-12">
+              <label class="control-label">Mô tả sản phẩm</label>
+              <textarea name="" id="describe" cols="40" rows="3"></textarea>
             </div>
             <!-- <div class="form-group col-md-6">
               <label class="control-label">Ảnh minh hoạ</label>
@@ -423,6 +437,8 @@ MODAL
 
     // Chỉnh sửa sản phẩm
     function productInfo(id) {
+
+
       // hiển thị danh mục sản phẩm
       let productList = JSON.parse(localStorage.getItem("productList"));
       let listProduct = JSON.parse(localStorage.getItem("listProduct"));
@@ -442,18 +458,20 @@ MODAL
       //   reader.onload = function (event) {
       //     let dataUrl = event.target.result;
       //     myImage.src = dataUrl;
-      //     localStorage.setItem('myImage', dataUrl);
+      //     localStorage.setItem('newImgProduct', dataUrl);
       //   };
       //   reader.readAsDataURL(file);
       // };
 
-      // listProduct[id].image = localStorage.getItem("myImage");
+      // listProduct[id].image = localStorage.getItem("newImgProduct");
 
       document.getElementById("name").value = listProduct[id].name;
       document.getElementById("quantity").value = listProduct[id].quantity;
       // document.getElementById("status").value = listProduct[id].status;
       document.getElementById("price").value = listProduct[id].price;
       document.getElementById("list").value = listProduct[id].list;
+      document.getElementById("describe").value = listProduct[id].describe;
+
       document.querySelector('.btn-save').addEventListener('click', function () {
         let newName = document.getElementById("name").value;
         listProduct[id].name = newName;
@@ -463,6 +481,8 @@ MODAL
         // listProduct[id].status = newStatus;
         let newPrice = Number(document.getElementById("price").value);
         listProduct[id].price = newPrice;
+        let newDescribe = document.getElementById("describe").value;
+        listProduct[id].describe = newDescribe;
         let newList = document.getElementById("list").value;
         listProduct[id].list = newList;
         localStorage.setItem("listProduct", JSON.stringify(listProduct));

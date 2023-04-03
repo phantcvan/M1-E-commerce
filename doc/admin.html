@@ -23,6 +23,15 @@
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">
+    <!-- Navbar-->
+    <header class="app-header">
+      <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+        aria-label="Hide Sidebar" ></a>
+        <ul class="app-nav">
+      <img src="../images/logo.png" alt="" width="40px">
+          </li>
+        </ul>
+    </header>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
@@ -212,12 +221,15 @@
       }
     }
 
-    
+    // HIển thị ds người dùng mới
     function newUser() {
       let listUser = JSON.parse(localStorage.getItem("listUser"));
       if (listUser == null) {
         listUser = [];
+        document.getElementById("tableInfo").innerHTML = `Chưa có khách hàng nào`;
+
       }
+      
       let newUser = `
       <tr>
         <th style="text-align:center">TT</th>
@@ -250,15 +262,24 @@
 <th>Tổng tiền</th>
 <th>Trạng thái</th>
 </tr>`;
-let orderManage = JSON.parse(localStorage.getItem("orderManage"));
-    let a = orderManage.length
+let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+if (renderOrder == null) {
+  renderOrder = [];
+  document.getElementById("tableInfo").innerHTML = `Chưa có đơn hàng nào`;
+
+      }
+    let a = renderOrder.length
     a = a > 4 ? 4 : a;
-    for (let i = (orderManage.length-1); i >= orderManage.length-a; i--) {
+    for (let i = (renderOrder.length-1); i >= renderOrder.length-a; i--) {
+      if (renderOrder[i].status==""){
+              renderOrder[i].status="Đang xử lý"
+            }
+
       table += `<tr>
-	<td>${ orderManage.length-i}</td>
-	<td>${orderManage[i].username}</td>
-	<td>${orderManage[i].price.toLocaleString('en-US')}</td>
-	<td>${orderManage[i].status}</td>
+	<td>${ renderOrder.length-i}</td>
+	<td>${renderOrder[i].username}</td>
+	<td>${renderOrder[i].price.toLocaleString('en-US')}</td>
+	<td>${renderOrder[i].status}</td>
 	</tr>`
   document.getElementById("tableInfo").innerHTML = table;
     }

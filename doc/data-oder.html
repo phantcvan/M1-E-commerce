@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Main CSS-->
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="../doc/css/main.css">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
   <!-- or -->
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
@@ -24,6 +26,15 @@
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">
+    <!-- Navbar-->
+    <header class="app-header">
+      <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+        aria-label="Hide Sidebar" ></a>
+        <ul class="app-nav">
+      <img src="../images/logo.png" alt="" width="40px">
+          </li>
+        </ul>
+    </header>  <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="./images/admin.png" width="50px"
@@ -149,7 +160,7 @@
     // Hiển thị list đơn hàng
     function renderListPay() {
 
-      let orderManage = JSON.parse(localStorage.getItem("orderManage"));
+      let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
       let ordered = `<tr>
                     <th style="text-align:center;width:3%">TT</th>
                     <th style="text-align:center;width:10%">ID đơn hàng</th>
@@ -162,20 +173,20 @@
                     <th style="text-align:center;width:19%">Tình trạng</th>
                   </tr>`;
 
-      for (let i = (orderManage.length - 1); i >= 0; i--) {
+      for (let i = (renderOrder.length - 1); i >= 0; i--) {
         // `statusSelect${i}`.value
         // console.log("TRẠNG THÁI",`statusSelect${i}`.value);
         
-        let status = orderManage[i] ? orderManage[i].status : "Đang xử lý"; // Lấy giá trị status từ renderOrder
+        let status = renderOrder[i] ? renderOrder[i].status : "Đang xử lý"; // Lấy giá trị status từ renderOrder
         ordered += `<tr>
-                    <td style="text-align:center">${orderManage.length - i}</td>
-                    <td>${orderManage[i].orderID}</td>
-                    <td>${orderManage[i].customName}</td>
-                    <td>${orderManage[i].name}</td>
-                    <td style="text-align:right">${orderManage[i].price.toLocaleString('en-US')}</td>
-                    <td>${orderManage[i].time}</td>
-                    <td>${orderManage[i].address}</td>
-                    <td>${orderManage[i].telephone}</td>
+                    <td style="text-align:center">${renderOrder.length - i}</td>
+                    <td>${renderOrder[i].orderID}</td>
+                    <td>${renderOrder[i].customName}</td>
+                    <td>${renderOrder[i].name}</td>
+                    <td style="text-align:right">${renderOrder[i].price.toLocaleString('en-US')}</td>
+                    <td>${renderOrder[i].time}</td>
+                    <td>${renderOrder[i].address}</td>
+                    <td>${renderOrder[i].telephone}</td>
                   <td>
                     <select class="form-control" id="statusSelect${i}">
                       <option ${status === "Đang xử lý" ? "selected" : ""} value="Đang xử lý" >Đang xử lý</option>
@@ -188,13 +199,13 @@
       }
       document.getElementById("renderOrder").innerHTML = ordered;
       let result = "";
-      for (let i = 0; i < orderManage.length; i++) {
+      for (let i = 0; i < renderOrder.length; i++) {
         let statusSelect = document.getElementById(`statusSelect${i}`);
-        statusSelect.value = orderManage[i] && orderManage[i].status !== "" ? orderManage[i].status : "Đang xử lý";
+        statusSelect.value = renderOrder[i] && renderOrder[i].status !== "" ? renderOrder[i].status : "Đang xử lý";
         statusSelect.addEventListener("change", () => {
           let statusNew = statusSelect.value;
-          orderManage[i].status = statusNew;
-          localStorage.setItem("renderOrder", JSON.stringify(orderManage));
+          renderOrder[i].status = statusNew;
+          localStorage.setItem("renderOrder", JSON.stringify(renderOrder));
         });
       }
 

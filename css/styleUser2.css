@@ -86,3 +86,38 @@
   width: fit-content;
   border:none;
 }
+
+.buttonListActive {
+  background-color: rgb(253, 148, 209);
+  color: rgb(61,33,24);
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 0rem .3rem;
+  font-size: 1rem;
+  padding: 5px 15px;
+  margin: 5px 10px;
+  border: none;
+  background: rgb(251, 33, 117);
+  background: linear-gradient(0deg, rgba(251, 33, 117, 1) 0%, rgba(234, 76, 137, 1) 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.buttonListActive:hover {
+  text-decoration: none;
+  color: #fff;
+  opacity: .7;
+}
+
+.buttonListDis {
+  border: 2px solid rgb(253, 148, 209);
+  background-color: #fff;
+  color: rgb(61,33,24);
+  font-size: 1rem;
+  border-radius: 5px;
+  padding: 0rem .3rem;
+  font-size: 1rem;
+  padding: 5px 15px;
+  margin: 5px 10px;
+
+}

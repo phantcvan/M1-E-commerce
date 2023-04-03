@@ -20,8 +20,18 @@ function logout() {
 }
 
 
+
+
+
 // Lấy thông tin ảnh do người dùng chọn
 function inputImg() {
+        // Thêm class "buttonListActive" vào button DANH MỤC được click
+        document.getElementById("buttonList1").classList.add('buttonListActive')
+        document.getElementById("buttonList1").classList.remove('buttonListDis');
+        // Loại bỏ class "buttonListActive" khỏi tất cả các button DANH MỤC CÒN LẠI
+    
+        document.getElementById("buttonList2").classList.add('buttonListDis');
+        document.getElementById("buttonList2").classList.remove('buttonListActive');
   document.getElementById("profile").innerHTML = `<form class="row" >
   <div class="form-group col-md-12">
   <label class="control-label">Chọn ảnh đại diện mới</label>
@@ -72,6 +82,13 @@ function saveImg() {
 
 
 function changePassword() {
+        // Thêm class "buttonListActive" vào button DANH MỤC được click
+        document.getElementById("buttonList2").classList.add('buttonListActive')
+        document.getElementById("buttonList2").classList.remove('buttonListDis');
+        // Loại bỏ class "buttonListActive" khỏi tất cả các button DANH MỤC CÒN LẠI
+    
+        document.getElementById("buttonList1").classList.add('buttonListDis');
+        document.getElementById("buttonList1").classList.remove('buttonListActive');
   document.getElementById("profile").innerHTML = `<form >
   <div class="wrap-input100 validate-input  col-12 col-md-6 col-lg-4">
   <input autocomplete="off" class="input100" type="password" placeholder="Nhập mật khẩu cũ"

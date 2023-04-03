@@ -25,6 +25,7 @@
 	$("[data-toggle='tooltip']").tooltip();
 
 })();
+
 function renderAdmin() {
 	let listUser = JSON.parse(localStorage.getItem("listUser"));
 	if (listUser == null) {
@@ -36,11 +37,11 @@ function renderAdmin() {
 		listProduct = []
 	}
 	document.getElementById("productQuantity").innerHTML=listProduct.length;
-	let orderManage = JSON.parse(localStorage.getItem("orderManage"));
-	if (orderManage == null) {
-		orderManage = []
+	let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+	if (renderOrder == null) {
+		renderOrder = []
 	}
-	document.getElementById("orderQuantity").innerHTML=orderManage.length;
+	document.getElementById("orderQuantity").innerHTML=renderOrder.length;
 	let count=0;
 	for (let i = 0; i < listProduct.length; i++) {
 		if (listProduct[i].status=="Sắp hết") {

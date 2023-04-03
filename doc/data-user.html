@@ -40,6 +40,16 @@
 </style>
 
 <body onload="time()" class="app sidebar-mini rtl">
+      <!-- Navbar-->
+      <header class="app-header">
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+          aria-label="Hide Sidebar" ></a>
+          <ul class="app-nav">
+        <img src="../images/logo.png" alt="" width="40px">
+            </li>
+          </ul>
+      </header>    <!-- Sidebar menu-->
+  
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
     <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="./images/admin.png" width="50px"
@@ -236,6 +246,8 @@
     renderUser();
     // update ghi chú
     function note(id) {
+      let listUser = JSON.parse(localStorage.getItem("listUser"));
+
       document.getElementById("note").value = listUser[id].note;
       document.getElementById("statusSelect").value = listUser[id].status;
       document.querySelector('.btn-save').addEventListener('click', function () {
@@ -252,6 +264,8 @@
     }
     // Xoá người dùng
     function deleteUser(id) {
+      let listUser = JSON.parse(localStorage.getItem("listUser"));
+
       console.log(listUser[id]);
       let alertDeleteUser = document.getElementById("toast")
       let accept = confirm('Bạn có chắc chắn muốn xoá account này?')

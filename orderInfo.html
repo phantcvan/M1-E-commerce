@@ -34,9 +34,20 @@
 
 <style>
 
+
 </style>
 
 <body class="app sidebar-mini rtl">
+      <!-- Navbar-->
+      <header class="app-header">
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+          aria-label="Hide Sidebar" ></a>
+          <ul class="app-nav">
+        <img src="../images/logo.png" alt="" width="40px">
+            </li>
+          </ul>
+      </header>    <!-- Sidebar menu-->
+  
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
     <div class="app-sidebar__user">
@@ -108,8 +119,13 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="./doc/js/main.js"></script>
+
 
   <script>
+
+
+
     let flag = localStorage.getItem("flag");
     console.log(flag);
     let listUser = JSON.parse(localStorage.getItem("listUser"));
@@ -132,30 +148,35 @@
     }
     function renderOrderUser() {
       let listPay = JSON.parse(localStorage.getItem("listPay"));
-      let orderManage= JSON.parse(localStorage.getItem("orderManage"));
-      console.log(111);
+      let renderOrder= JSON.parse(localStorage.getItem("renderOrder"));
+      console.log(renderOrder);
+      if (renderOrder==null){
+        document.getElementById("renderOrder").innerHTML=`Chưa có đơn hàng nào`;
+        return;
+
+      }
       let result = `<tr>
                       <th style="width: 5%;text-align: center;">TT</th>
                       <th style="width: 10%;text-align: center;">ID đơn hàng</th>
                       <th style="width: 35%;text-align: center;">Sản phẩm</th>
-                      <th style="width: 5%;text-align: center;">Số lượng</th>
                       <th style="width: 15%;text-align: center;">Thời gian đặt hàng</th>
                       <th style="width: 15%;text-align: center;">Tổng tiền</th>
                       <th style="width: 25%;text-align: center;">Tình trạng</th>
                     </tr>`
       let i=1;
-        for (let j = 0; j < listPay.length; j++) {
-          if (listPay[j].username == flag) {
+        for (let j = 0; j < renderOrder.length; j++) {
+          if (renderOrder[j].username == flag) {
+            if (renderOrder[j].status==""){
+              renderOrder[j].status="Đang xử lý"
+            }
             result+=`<tr>
-                      <td style="text-align: center;">${i++}</td>
-                      <td>${listPay[j].username}_${listPay[j].orderID.toString().padStart(3, '0')}</td>
-                      <td>${listPay[j].name}</td>
-                      <td>${listPay[j].quantity}</td>
-                      <td style="text-align: center;">${listPay[j].time}</td>
-                      <td style="width: 15%;text-align: right;">${listPay[j].price.toLocaleString('en-US')}</td>
-                      <td style="width: 25%;text-align: center;">${listPay[j].status}</td>
-                    </tr>`
-
+              <td style="text-align: center;">${i++}</td>
+              <td>${renderOrder[j].username}_${listPay[j].orderID.toString().padStart(3, '0')}</td>
+              <td>${renderOrder[j].name}</td>
+              <td style="text-align: center;">${renderOrder[j].time}</td>
+              <td style="width: 15%;text-align: right;">${renderOrder[j].price.toLocaleString('en-US')}</td>
+              <td style="width: 25%;text-align: center;">${renderOrder[j].status}</td>
+              </tr>`
         }
         document.getElementById("renderOrder").innerHTML=result;
       }

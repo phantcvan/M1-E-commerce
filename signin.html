@@ -203,7 +203,7 @@
             return;
           }
           // Kiểm tra số điện thoại
-          if (telephone.length!=10){
+          if (telephone.length != 10) {
             document.getElementById("toast-body").innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                 <div class="toast-header"><br>
                     <strong class="mr-auto" style="font-size:18px">Hãy nhập lại số điện thoại</strong>
@@ -280,32 +280,32 @@
             return;
           }
 
-// lưu ảnh avatar mặc định
-// Đường dẫn đến ảnh mặc định
-let defaultImageURL  = "https://png.pngtree.com/png-vector/20190130/ourlarge/pngtree-q-cute-cute-cartoon-bride-and-groom-wedding-character-design-menglovelycartoonbridegroombridecharacterwedding-png-image_582849.jpg";
-const img = new Image();
-img.src = defaultImageURL;
-img.crossOrigin = "anonymous";
-img.style.display = "none";
-document.body.appendChild(img);
+          // lưu ảnh avatar mặc định
+          // Đường dẫn đến ảnh mặc định
+          let defaultImageURL = "https://i.pinimg.com/236x/76/c9/32/76c932f0fcdd308acf94f569480beedf.jpg";
+          const img = new Image();
+          img.src = defaultImageURL;
+          img.crossOrigin = "anonymous";
+          img.style.display = "none";
+          document.body.appendChild(img);
 
-// Khi ảnh mặc định đã được tải xong
-img.onload = function () {
-  // Tạo một canvas để chuyển đổi ảnh thành chuỗi base64
-  const canvas = document.createElement("canvas");
-  canvas.width = img.width;
-  canvas.height = img.height;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0);
-  const base64Image = canvas.toDataURL("image/png");
+          // Khi ảnh mặc định đã được tải xong
+          img.onload = function () {
+            // Tạo một canvas để chuyển đổi ảnh thành chuỗi base64
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            const base64Image = canvas.toDataURL("image/png");
 
-  // Lưu chuỗi base64 của ảnh vào localStorage
-  localStorage.setItem("imageAvatar", base64Image);
+            // Lưu chuỗi base64 của ảnh vào localStorage
+            localStorage.setItem("imageAvatar", base64Image);
 
-  // Xóa thẻ ảnh ẩn
-  document.body.removeChild(img);
-};
-let imageAvatarLocal = localStorage.getItem("imageAvatar");
+            // Xóa thẻ ảnh ẩn
+            document.body.removeChild(img);
+          };
+          let imageAvatarLocal = localStorage.getItem("imageAvatar");
 
 
           let infoUser = {
@@ -313,8 +313,8 @@ let imageAvatarLocal = localStorage.getItem("imageAvatar");
             password: passwordInput,
             username: username,
             telephone: telephone,
-            address:"",
-            avatar:imageAvatarLocal,
+            address: "",
+            avatar: imageAvatarLocal,
             note: "",
             status: "Đang hoạt động",
           }
