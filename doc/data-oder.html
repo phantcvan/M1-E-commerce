@@ -55,9 +55,9 @@
       </li>
       <li><a class="app-menu__item active" href="data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
-      <li><a class="app-menu__item" href="/login.html"><i class='app-menu__icon bx bx-log-out'></i><span
-            class="app-menu__label">Đăng xuất</span></a></li>
-    </ul>
+            <li><a class="app-menu__item" href="../login.html" onclick="logout()"><i class='app-menu__icon bx bx-log-out'></i><span
+              class="app-menu__label">Đăng xuất</span></a></li>
+      </ul>
   </aside>
     <main class="app-content">
     <div class="app-title">
@@ -116,6 +116,7 @@
 
 
   <script>
+    
     //Thời Gian
     function time() {
       var today = new Date();
@@ -163,14 +164,14 @@
       let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
       let ordered = `<tr>
                     <th style="text-align:center;width:3%">TT</th>
-                    <th style="text-align:center;width:10%">ID đơn hàng</th>
+                    <th style="text-align:center;width:5%">ID đơn hàng</th>
                     <th style="text-align:center;width:8%">Tên người nhận</th>
-                    <th style="text-align:center;width:20%">Đơn hàng</th>
+                    <th style="text-align:center;width:18%">Đơn hàng</th>
                     <th style="text-align:center;width:8%">Tổng tiền</th>
                     <th style="text-align:center;width:8%">Thời gian</th>
                     <th style="text-align:center;width:13%">Địa chỉ</th>
                     <th style="text-align:center;width:12%">Số ĐT nhận hàng</th>
-                    <th style="text-align:center;width:19%">Tình trạng</th>
+                    <th style="text-align:center;width:26%">Tình trạng</th>
                   </tr>`;
 
       for (let i = (renderOrder.length - 1); i >= 0; i--) {

@@ -511,13 +511,8 @@ function clientPay() {
     document.getElementById("noti").innerHTML = `<span style="color:rgb(56,9,21);font-size: 16px;">Đơn hàng thành công!</span>
         <button style="color:rgb(56,9,21);font-size: 16px;" data-bs-dismiss="offcanvas">`
         document.getElementById("productBuy").innerHTML = "";
-        sum=0;
-        document.getElementById("totalAmount").style.display="none";
-        document.getElementById("totalButton").style.display="none";
-
-        setTimeout(function () {
-            window.location = "./index.html#product";
-        }, 500);
+        // document.getElementById("totalAmount").style.display="none";
+        // document.getElementById("totalButton").style.display="none";
 
 
 
@@ -534,6 +529,15 @@ function clientPay() {
     }
     
     localStorage.setItem("listProductBuy", JSON.stringify(listProductRemove));
+    localStorage.setItem("sum", 0);
+    let sum1 = JSON.parse(localStorage.getItem("sum"));
+    document.getElementById("totalAmount").innerHTML = `<span style="color:rgb(56,9,21);font-size: 16px;">Tổng tiền hàng: </span>
+    <span style="font-size: 20px">${sum1}</span>`;
+    setTimeout(function () {
+        window.location = "./index.html#product";
+    }, 500);
+
+
     
     // }
     

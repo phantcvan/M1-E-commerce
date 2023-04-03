@@ -136,7 +136,7 @@
             let result = document.getElementById("toast-body");
             // Đăng nhập Admin
             if (username == 'admin' && password == "123456") {
-                localStorage.setItem("flag", username);
+                localStorage.setItem("flagAdmin", username);
                 result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
                     <div class="toast-header">
                     <strong class="mr-auto" style="font-size:18px">Đăng nhập thành công</strong>
@@ -171,7 +171,32 @@
             console.log("LIST USER-->",listUser);
 
             localStorage.setItem("listUser", JSON.stringify(listUser));
+            let flagInfo=false;
+            for (let i = 0; i < listUser.length; i++) {
+                if (listUser[i].username == username){
+                    flagInfo=true;
+                    break;
+                }
+            }
+            if (!flagInfo){
+                result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Xin thử lại</strong>
+                        </div>
+                        <div class="toast-body">
+                Tên người dùng chưa đăng ký tài khoản
+                </div>
+                </div>`;
+                setTimeout(function () {
+                    window.location = "login.html";
+                }, 2000);
+                return;
+
+            }
+
             for (i = 0; i < listUser.length; i++) {
+
+
                 if (listUser[i].username == username && listUser[i].password == password &&
                     listUser[i].status == "Đang hoạt động") {
                     localStorage.setItem("flag", username);
@@ -222,21 +247,6 @@
                     }, 2000);
                     return;
                 }
-                // else if (listUser[i].username != username){
-                //     console.log("4",listUser[i].status);
-                //     result.innerHTML = `<div class="toast1" style="position: absolute; top: 20; right: 0;">
-                //         <div class="toast-header">
-                //             <strong class="mr-auto">Xin thử lại</strong>
-                //             </div>
-                //             <div class="toast-body">
-                //     Tên người dùng chưa đăng ký tài khoản
-                //     </div>
-                //     </div>`;
-                //     setTimeout(function () {
-                //         window.location = "login.html";
-                //     }, 2000);
-                //     return;
-                // }
             }
 
         }

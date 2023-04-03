@@ -26,6 +26,19 @@
 
 })();
 
+let flagAdmin1 = localStorage.getItem("flagAdmin");
+console.log(flagAdmin1);
+if (flagAdmin1!="admin") {
+	setTimeout(function () {
+		window.location = "../login.html";
+	}, 1000);
+}
+function logout() {
+    localStorage.setItem("flagAdmin", "");
+}
+
+
+
 function renderAdmin() {
 	let listUser = JSON.parse(localStorage.getItem("listUser"));
 	if (listUser == null) {

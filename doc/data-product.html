@@ -97,9 +97,9 @@
       </li>
       <li><a class="app-menu__item" href="data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
-      <li><a class="app-menu__item" href="/login.html"><i class='app-menu__icon bx bx-log-out'></i><span
-            class="app-menu__label">Đăng xuất</span></a></li>
-    </ul>
+            <li><a class="app-menu__item" href="../login.html" onclick="logout()"><i class='app-menu__icon bx bx-log-out'></i><span
+              class="app-menu__label">Đăng xuất</span></a></li>
+      </ul>
   </aside>
     <main class="app-content">
     <div class="app-title">
@@ -239,6 +239,7 @@ MODAL
   <!-- <script src="js/main.js"></script> -->
 
   <script type="text/javascript">
+    
     // $('#sampleTable').DataTable();
     //Thời Gian
     function time() {
@@ -336,9 +337,9 @@ MODAL
                           <th style="text-align:center;width:10%">Tên sản phẩm</th>
                           <th style="text-align:center;width:8%">Ảnh</th>
                           <th style="text-align:center;width:5%">Số lượng</th>
-                          <th style="text-align:center;width:10%">Tình trạng</th>
+                          <th style="text-align:center;width:12%">Tình trạng</th>
                           <th style="text-align:center;width:8%">Giá tiền</th>
-                          <th style="text-align:center;width:15%" colspan="2">Chức năng</th>
+                          <th style="text-align:center;width:16%" colspan="2">Chức năng</th>
                         </tr>`;
 
 
@@ -356,11 +357,11 @@ MODAL
       <tr>
         <td style="text-align:center">${i + 1}</td>
         <td>${listProduct[i].code}</td>
-        <td>${listProduct[i].list}</td>
+        <td style="text-align:center;">${listProduct[i].list}</td>
         <td style="text-align: left">${listProduct[i].name}</td>
         <td><img class="imgProduct" src="${listProduct[i].image}" /></td>
-        <td>${listProduct[i].quantity}</td>
-        <td><span style="${statusStyle}"> ${listProduct[i].status}</span></td>
+        <td style="text-align:center;">${listProduct[i].quantity}</td>
+        <td style="text-align:center;"><span style="${statusStyle}"> ${listProduct[i].status}</span></td>
         <td>${(listProduct[i].price).toLocaleString('en-US')}</td>
         <td class="btn btn-warning" style="border:none; background-color:rgb(255, 212, 59);margin-right:5px" type="button" title="Sửa" id="show-emp"
           data-toggle="modal" data-target="#ModalUP"> 
