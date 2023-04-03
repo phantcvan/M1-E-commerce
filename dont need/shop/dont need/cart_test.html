@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+</head>
+
+<body>
+    <table class="table table-hover table-bordered" id="renderOrder">
+        <!-- <tr>
+              <th>TT</th>
+              <th class="col-1">ID đơn hàng</th>
+              <th class="col-2">Thời gian đặt hàng</th>
+              <th class="col-2">Tên khách hàng</th>
+              <th class="col-2">Đơn hàng</th>
+              <th class="col-2">Tổng tiền</th>
+              <th class="col-2">Tình trạng</th>
+            </tr> -->
+    </table>
+
+
+    <script>
+function renderListPay() {
+  let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+  if (renderOrder == null) {
+    renderOrder = [];
+  }
+  let listPay = JSON.parse(localStorage.getItem("listPay"));
+  let grouped = {};
+  listPay.forEach((item) => {
+    let key = `${item.username}_${item.orderID
+      .toString()
+      .padStart(3, "0")}`;
+    let order = `${item.name}- sl:${item.quantity}`;
+    if (!grouped[key]) {
+      grouped[key] = { orderID: key };
+    }
+  });
+  renderOrder.forEach((item) => {
+    let id = item.orderID;
+    if (!grouped[id]) {
+      grouped[id].status = "Đang xử lý";
+    }
+    grouped[id].status = item.status;
+  });
+  let orderManage = Object.values(grouped);
+  let ordered = `<tr>
+                    <th style="text-align:center;width:10%">ID đơn hàng</th>
+                    <th style="text-align:center;width:19%">Tình trạng</th>
+                  </tr>`;
+  for (let i = orderManage.length - 1; i >= 0; i--) {
+    let key = orderManage[i].orderID;
+    let status = renderOrder[i] ? renderOrder[i].status : "Đã hoàn thành";
+    ordered += `<tr>
+                    <td>${orderManage[i].orderID}</td>
+                    <td><select class="form-control" id="statusSelect${i}">
+                      <option  ${
+                        status === "Đang xử lý" ? "selected" : ""
+                      } value="0" >Đang xử lý</option>
+                      <option  ${
+                        status === "Bị huỷ" ? "selected" : ""
+                      } value="1" >Bị huỷ</option>
+                    </select></td>
+                </tr>`;
+  }
+  document.getElementById("renderOrder").innerHTML = ordered;
+  let result = "";
+  for (let i = 0; i < orderManage.length; i++) {
+    let statusSelect = document.getElementById(`statusSelect${i}`);
+    statusSelect.value = renderOrder[i] ? renderOrder[i].status : "2";
+    statusSelect.addEventListener("change", () => {
+      let statusNew = statusSelect.value;
+      orderManage[i].status = statusNew;
+      localStorage.setItem("renderOrder", JSON.stringify(orderManage));
+    });
+  }
+}
+
+renderListPay()
+
+
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+</body>
+
+</html>

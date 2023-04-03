@@ -20,21 +20,21 @@ if (flag != "") {
                 <li  style="border:none;padding: 0px 5px"><p id="hello"></p></li>
                 <li><hr class="dropdown-divider"></li>
                 <li  style="border:none;padding: 0px 5px">
-                    <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="./userInfo.html">
+                    <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="./userInfo2.html">
                     <p>Chỉnh sửa thông tin cá nhân</p></a>
                 </li>
                 <li  style="border:none;padding: 0px 5px">
-                    <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="">
+                    <a style="color:rgb(61,33,24);font-size:1.7rem;padding:0px;" class="dropdown-item" href="./orderInfo.html">
                     <p>Chi tiết đơn hàng</p></a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
-                <li style="border:none;padding: 0px 5px"><p id="logout"></p></li>
+                <li style="border:none;padding: 0px 5px" onclick="logout()" ><p id="logout"></p></li>
               </ul>
         `
             document.getElementById("hello").innerHTML =
                 `<span class="welcome"><b>Xin chào, ${flag}</b></span><br>   `
             document.getElementById("logout").innerHTML =
-                `<a onclick="logout()" class="logout"><b>Đăng xuất</b></a>`
+                `<a class="logout"><b>Đăng xuất</b></a>`
         }
     }
 }
@@ -65,6 +65,22 @@ let listProductBuy = JSON.parse(localStorage.getItem("listProductBuy"));
 let listProduct = JSON.parse(localStorage.getItem("listProduct"));
 
 
+// Hiển thị thời gian thực để update đơn hàng
+function time() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+    return today = dd + '/' + mm + '/' + yyyy;
+
+  }
+  
 
 
 
@@ -282,6 +298,7 @@ function buy(id) {
         name: nameProduct,
         code: codeProduct,
         price: priceProduct,
+        time:"",
         img: listProduct[id].image,
         quantity: 1,
         customName: "",
@@ -430,12 +447,19 @@ function clientPay() {
         return;
     }
 
+    // update thời gian mua hàng
+    let dayBuy=time()
     
+
+
+
+    // update thông tin người mua
     for (let i = 0; i < listProductBuy.length; i++) {
         if (listProductBuy[i].username == flag) {
             listProductBuy[i].customName = customName1;
             listProductBuy[i].customTel = customTel1;
             listProductBuy[i].customAdd = customAdd1;
+            listProductBuy[i].time = dayBuy;
             // console.log("ORDER ID -->", listProductBuy[i].orderID);
         }
     }
@@ -473,6 +497,7 @@ function clientPay() {
     for (i = 0; i < listProductBuy.length; i++) {
         if (listProductBuy[i].username == flag) {
             listProductBuy[i].orderID = idNew;
+            listProductBuy[i].status = 'Đang xử lý';
         }
     }
     for (let i = 0; i < listProductBuy.length; i++) {
@@ -509,6 +534,46 @@ function clientPay() {
     renderProductBuy();
     renderCount();
 
+
+}
+// Lưu đơn hàng trên local
+function saveOrder(){
+    let renderOrder = JSON.parse(localStorage.getItem("renderOrder"));
+    if (renderOrder == null) {
+      renderOrder = [];
+    }
+    let listPay = JSON.parse(localStorage.getItem("listPay"));
+    let grouped = {};
+    listPay.forEach(item => {
+      let key = `${item.username}_${item.orderID.toString().padStart(3, '0')}`;
+      let order = `${item.name}- sl:${item.quantity}`;
+      if (!grouped[key]) {
+        grouped[key] = {
+          username: item.username,
+          customName: item.customName,
+          orderID: key,
+          name: [],
+          time: item.time,
+          price: 0,
+          address: item.customAdd,
+          telephone: item.customTel,
+          status: ""
+        };
+      }
+      grouped[key].name.push(order);
+      grouped[key].price += item.price;
+    });
+
+    renderOrder.forEach(item => {
+      let id = item.orderID;
+      if (!grouped[id]) {
+        grouped[id].status = "Đang xử lý";
+      }
+      grouped[id].status = item.status;
+
+    });
+    let orderManage = Object.values(grouped);
+    localStorage.setItem("orderManage", JSON.stringify(orderManage));
 
 }
 

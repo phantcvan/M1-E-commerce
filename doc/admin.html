@@ -23,20 +23,6 @@
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">
-  <!-- Navbar-->
-  <header class="app-header">
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-      aria-label="Hide Sidebar"></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
-
-
-      <!-- User Menu-->
-      <li><a class="app-nav__item" href="/login.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-
-      </li>
-    </ul>
-  </header>
   <!-- Sidebar menu-->
   <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
   <aside class="app-sidebar">
@@ -49,8 +35,6 @@
     </div>
     <hr>
     <ul class="app-menu">
-      <!-- <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
-          <span class="app-menu__label">POS Bán Hàng</span></a></li> -->
       <li><a class="app-menu__item active" href="admin.html"><i class='app-menu__icon bx bx-tachometer'></i><span
             class="app-menu__label">Bảng điều khiển</span></a></li>
       <li><a class="app-menu__item " href="data-user.html"><i class='app-menu__icon bx bx-id-card'></i> <span
@@ -60,6 +44,8 @@
       </li>
       <li><a class="app-menu__item" href="data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
             class="app-menu__label">Quản lý đơn hàng</span></a></li>
+      <li><a class="app-menu__item" href="/login.html"><i class='app-menu__icon bx bx-log-out'></i><span
+            class="app-menu__label">Đăng xuất</span></a></li>
     </ul>
   </aside>
   <main class="app-content">
@@ -75,7 +61,7 @@
     </div>
     <div class="row">
       <!--Left-->
-      <div class="col-md-12 col-lg-6">
+      <div class="col-md-12 col-lg-7">
         <div class="row">
           <!-- col-6 -->
           <div class="col-md-6">
@@ -109,7 +95,7 @@
             <div class="widget-small danger coloured-icon"><i class='icon bx bxs-error-alt fa-3x'></i>
               <div class="info">
                 <h4>Sắp hết hàng</h4>
-                <p class="info-tong"><b>4 sản phẩm</b></p>
+                <p class="info-tong"><b><span id="outOfStock"></span> sản phẩm</b></p>
               </div>
             </div>
           </div>
@@ -149,7 +135,7 @@
       </div>
       <!--END left-->
       <!--Right-->
-      <div class="col-md-12 col-lg-6">
+      <div class="col-md-12 col-lg-5">
         <div class="row">
           <div class="col-md-12">
             <div class="tile">
@@ -228,7 +214,7 @@
 
     
     function newUser() {
-      // let listUser = JSON.parse(localStorage.getItem("listUser"));
+      let listUser = JSON.parse(localStorage.getItem("listUser"));
       if (listUser == null) {
         listUser = [];
       }
@@ -264,14 +250,15 @@
 <th>Tổng tiền</th>
 <th>Trạng thái</th>
 </tr>`;
-    let a = renderOrder.length
+let orderManage = JSON.parse(localStorage.getItem("orderManage"));
+    let a = orderManage.length
     a = a > 4 ? 4 : a;
-    for (let i = (renderOrder.length-1); i >= renderOrder.length-a; i--) {
+    for (let i = (orderManage.length-1); i >= orderManage.length-a; i--) {
       table += `<tr>
-	<td>${ renderOrder.length-i}</td>
-	<td>${renderOrder[i].username}</td>
-	<td>${renderOrder[i].price.toLocaleString('en-US')}</td>
-	<td>${renderOrder[i].status}</td>
+	<td>${ orderManage.length-i}</td>
+	<td>${orderManage[i].username}</td>
+	<td>${orderManage[i].price.toLocaleString('en-US')}</td>
+	<td>${orderManage[i].status}</td>
 	</tr>`
   document.getElementById("tableInfo").innerHTML = table;
     }

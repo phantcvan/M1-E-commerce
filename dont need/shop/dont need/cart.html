@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+</head>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 5px 20px;
+  }
+
+  tr,
+  td {
+    border: 1px solid black;
+    padding: 15px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: medium;
+  }
+
+  tr:nth-child(odd) {
+    background-color: white;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgb(253, 213, 220);
+  }
+
+  .imgProduct {
+    width: 30px;
+  }
+
+  /* media queries  */
+
+  @media (max-width:1200px) {
+
+    html {
+      font-size: 55%;
+    }
+
+    header .navbar a {
+      display: block;
+      font-size: 2.3em;
+      margin: 0 0.6rem;
+      padding: 0 0.5rem;
+    }
+
+  }
+
+  @media (max-width:991px) {
+
+    header .logo {
+      padding-right: 0.5rem;
+      margin-left: .5rem;
+      height: 50px;
+    }
+
+    header .navbar.active {
+      /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
+      padding: 0 1rem;
+      /* margin-right:2rem;     */
+    }
+
+    header .navbar a {
+      display: block;
+      font-size: medium;
+      margin: 0 0.6rem;
+    }
+
+    section {
+      padding: 2rem;
+    }
+  }
+
+  @media (max-width:768px) {
+
+    #menu-bar {
+      display: initial;
+      color: black;
+    }
+
+    header .logo {
+      margin: 0 12rem;
+    }
+
+    header .navbar {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      background: #fff;
+      color: rgb(236, 0, 139);
+      border-top: .1rem solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 2rem;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header .navbar.active {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      padding: 0 5rem;
+    }
+
+    header .navbar a {
+      display: block;
+      font-size: small;
+      border-radius: .5rem;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      background: rgb(236, 0, 139);
+      color: #fff;
+    }
+
+    .welcome {
+      display: block;
+      /* padding:1rem; */
+      margin: 1rem 0 0.1rem;
+      font-size: 150%;
+
+    }
+
+    .logout {
+      display: block;
+      /* padding:1rem; */
+      margin: 0.1rem 0;
+      font-size: 150%;
+    }
+
+  }
+
+  @media (max-width:600px) {
+    header .logo {
+      padding-right: 0.5rem;
+      margin: 0 8rem;
+      height: 40px;
+    }
+
+  }
+
+  @media (max-width:480px) {
+
+    html {
+      font-size: 50%;
+    }
+
+    .contact .row form .inputBox input {
+      width: 100%;
+    }
+
+    header .logo {
+      padding-right: 0.5rem;
+      margin: 0 6rem;
+      height: 40px;
+    }
+
+    .heading span {
+      font-size: 2.5rem;
+    }
+
+    /* header .navbar a{
+  display: block;
+  border-radius: .5rem;
+  padding:1.5rem;
+  margin:1.5rem 0;    
+  background:rgb(236,0,139);
+  color:#fff;
+}    */
+    header .search-bar-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      /* padding:1.5rem 2rem; */
+      background: rgb(236, 0, 139);
+      border-top: .1rem solid rgba(255, 255, 255, .2);
+      display: flex;
+      align-items: center;
+      z-index: 1001;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+  }
+</style>
+
+<body>
+  <header>
+    <div id="menu-bar" class="fas fa-bars"></div>
+
+    <a href="#" class="logo"><img class="logo" src="./images/logo.png" /></a>
+
+    <nav class="navbar">
+      <a href="./index.html#home">home</a>
+      <a href="./index.html#aboutUs">about us</a>
+      <a href="./index.html#accessories">products</a>
+      <a href="./index.html#review">review</a>
+      <a href="./index.html#contact">contact</a>
+    </nav>
+
+    <div class="icons">
+      <i class="fas fa-search" id="search-btn"></i>
+      <a href="./login.html" id="login"> <i class="fas fa-user"></i></a>
+    </div>
+    <p id="logout"></p>
+    <form action="" class="search-bar-container">
+      <input type="search" id="search-bar" placeholder="search here...">
+      <label for="search-bar" class="fas fa-search"></label>
+    </form>
+
+  </header>
+  <div class="receipt" style="margin: 80px 40px 0px;">
+    <h2><b>RECEIPT</b></h2>
+    <table id="listCart"></table>
+  </div>
+  <!-- HTML code -->
+  <!-- <img id="myImage" src="#" alt="My Image"> -->
+
+  <!-- <script>
+// JavaScript code
+var localStorageImage = localStorage.getItem("myImage"); // Lấy dữ liệu ảnh từ Local Storage
+
+if (localStorageImage) {
+  document.getElementById("myImage").setAttribute("src", localStorageImage); // Hiển thị ảnh
+}
+</script> -->
+
+
+
+  <!-- header section ends -->
+
+
+
+  <script>
+    let flag = localStorage.getItem("flag");
+    let listUser = JSON.parse(localStorage.getItem("listUser"));
+    if (flag != "") {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("logout").innerHTML =
+        `<span class="welcome"><b>Xin chào, ${flag}</b></span><br>   
+  <a onclick="logout()" class="logout"><b>Đăng xuất</b></a>
+  `
+    }
+    function logout() {
+      localStorage.setItem("flag", "");
+      window.location.href = "index.html";
+    }
+
+
+
+
+    function render() {
+
+      let listProductBuy = JSON.parse(localStorage.getItem("listProductBuy"));
+      console.log(listProductBuy);
+      let result = `
+        <tr>
+            <td><b> TT </b></td>
+            <td colspan="2"><b> Danh sách sản phẩm </b></td>
+            <td><b> Giá tiền </b></td>
+            <td><b> Số lượng </b></td>
+            <td><b> Số tiền </b></td>
+        </tr>
+    `;
+      let total = 0;
+      let totalAll = 0;
+      let resultAll = ``;
+      for (let i = 0; i < listProductBuy.length; i++) {
+        total = listProductBuy[i].price * listProductBuy[i].quantity;
+        totalAll += total;
+        result += `
+        <tr>
+        <td> ${i + 1} </td>
+        <td class="imgProduct"> Ảnh</td>
+        <td style="text-align: left"> ${listProductBuy[i].name
+          } </td>
+        <td> $${listProductBuy[i].price} </td>
+        <td> ${listProductBuy[i].quantity} </td>
+        <td> $${total} </td>
+        </tr>`;
+
+        resultAll = `<tr>
+    <td colspan="5"><b> TỔNG SỐ TIỀN </b></td>
+    <td colspan="1"><b> $${totalAll} </b></td>
+    </tr>
+    `
+      }
+      document.getElementById("listCart").innerHTML = `${result} ${resultAll}`;
+    }
+    render();
+
+  </script>
+</body>
+
+</html>

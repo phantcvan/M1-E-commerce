@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Chi tiết đơn hàng</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Main CSS-->
+  <link rel="stylesheet" type="text/css" href="./doc/css/main.css">
+  <link rel="stylesheet" type="text/css" href="./css/styleUser2.css">
+  <!-- Font-icon css-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel="icon" href="../images/logo.png">
+
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <!-- or -->
+  <!-- <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <!-- <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+  <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script> -->
+
+</head>
+
+<style>
+
+</style>
+
+<body class="app sidebar-mini rtl">
+  <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+  <aside class="app-sidebar">
+    <div class="app-sidebar__user">
+      <div>
+        <div id="imageAvatar"></div>
+        <p class="app-sidebar__user-name" id="hello"></p>
+        <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+      </div>
+    </div>
+    <hr>
+    <ul class="app-menu">
+      <li><a class="app-menu__item" href="./index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
+            class="app-menu__label">Về trang chủ</span></a></li>
+      <li><a class="app-menu__item" href="./userInfo2.html"><i class='app-menu__icon bx bx-id-card'></i>
+          <span class="app-menu__label">Chỉnh sửa thông tin</span></a>
+      </li>
+      <li><a class="app-menu__item" href="./orderInfo.html"><i class='app-menu__icon bx bx-task'></i><span
+            class="app-menu__label">Chi tiết đơn hàng</span></a></li>
+      <li><a class="app-menu__item" href="/login.html"><i class='app-menu__icon bx bx-log-out'
+            onclick="logout()"></i><span class="app-menu__label">Đăng xuất</span></a></li>
+    </ul>
+  </aside>
+
+  <main class="app-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tile">
+          <h3 class="tile-title">Chi tiết đơn hàng</h3>
+          <div class="row">
+            <div class="col-12">
+              <div class="tile">
+                <div class="tile-body" style="overflow-x: auto;">
+                  <table class="table table-hover table-bordered " id="renderOrder" style="width:100%">
+                    <!-- <tr>
+                      <th style="width: 5%;text-align: center;">TT</th>
+                      <th style="width: 10%;text-align: center;">ID đơn hàng</th>
+                      <th style="width: 15%;text-align: center;">Sản phẩm</th>
+                      <th style="width: 10%;text-align: center;">Số lượng</th>
+                      <th style="width: 15%;text-align: center;">Thời gian đặt hàng</th>
+                      <th style="width: 15%;text-align: center;">Tổng tiền</th>
+                      <th style="width: 25%;text-align: center;">Tình trạng</th>
+                    </tr> -->
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </main>
+
+
+
+
+
+  <!-- Load jQuery first -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- Load Popper.js next -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <!-- Load Bootstrap JS last -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    let flag = localStorage.getItem("flag");
+    console.log(flag);
+    let listUser = JSON.parse(localStorage.getItem("listUser"));
+    if (flag != "") {
+      for (let i = 0; i < listUser.length; i++) {
+        if (listUser[i].username == flag) {
+          document.getElementById("imageAvatar").innerHTML = `
+        <a href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" 
+        aria-expanded="false"><img style="border-radius: 50%;width:50px;height:50px;margin:10px" 
+        src="${listUser[i].avatar}" alt="">
+        </a>`
+          document.getElementById("hello").innerHTML =
+            `<span class="welcome"><b>Xin chào, ${flag}</b></span><br>   `
+        }
+      }
+    }
+    function logout() {
+      localStorage.setItem("flag", "");
+      window.location.href = "index.html";
+    }
+    function renderOrderUser() {
+      let listPay = JSON.parse(localStorage.getItem("listPay"));
+      let orderManage= JSON.parse(localStorage.getItem("orderManage"));
+      console.log(111);
+      let result = `<tr>
+                      <th style="width: 5%;text-align: center;">TT</th>
+                      <th style="width: 10%;text-align: center;">ID đơn hàng</th>
+                      <th style="width: 35%;text-align: center;">Sản phẩm</th>
+                      <th style="width: 5%;text-align: center;">Số lượng</th>
+                      <th style="width: 15%;text-align: center;">Thời gian đặt hàng</th>
+                      <th style="width: 15%;text-align: center;">Tổng tiền</th>
+                      <th style="width: 25%;text-align: center;">Tình trạng</th>
+                    </tr>`
+      let i=1;
+        for (let j = 0; j < listPay.length; j++) {
+          if (listPay[j].username == flag) {
+            result+=`<tr>
+                      <td style="text-align: center;">${i++}</td>
+                      <td>${listPay[j].username}_${listPay[j].orderID.toString().padStart(3, '0')}</td>
+                      <td>${listPay[j].name}</td>
+                      <td>${listPay[j].quantity}</td>
+                      <td style="text-align: center;">${listPay[j].time}</td>
+                      <td style="width: 15%;text-align: right;">${listPay[j].price.toLocaleString('en-US')}</td>
+                      <td style="width: 25%;text-align: center;">${listPay[j].status}</td>
+                    </tr>`
+
+        }
+        document.getElementById("renderOrder").innerHTML=result;
+      }
+
+    }
+    renderOrderUser()
+
+  </script>
+
+</body>
+
+</html>
